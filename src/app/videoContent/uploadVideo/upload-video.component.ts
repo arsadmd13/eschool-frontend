@@ -63,6 +63,8 @@ export class UploadComponent implements OnInit {
       location.href = '/'
     }
 
+    this.msg = "Supported format: mp4"
+
   }
 
   ngOnInit() {
