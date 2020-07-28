@@ -24,3 +24,12 @@
 input{
   display:inline !important;
 }
+
+.hide{
+  display: none;
+}
+
+.progress{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}

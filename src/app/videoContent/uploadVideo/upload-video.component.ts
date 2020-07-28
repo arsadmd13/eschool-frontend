@@ -31,7 +31,7 @@ import { ToastrService } from 'ngx-toastr';
 
 
 
-const URL = 'https://nameless-plateau-81910.herokuapp.com/video/upload';
+const URL = 'http://localhost:3000/video/upload'//'https://nameless-plateau-81910.herokuapp.com/video/upload';
 
 @Component({
   selector: 'app-upload',
@@ -51,6 +51,7 @@ export class UploadComponent implements OnInit {
   username: string;
   userid: string;
   msg: string;
+  progress: string;
 
   constructor(private toastr: ToastrService) {
 
@@ -68,6 +69,10 @@ export class UploadComponent implements OnInit {
     this.uploader.onBeforeUploadItem = (fileItem: any) => {
       this.msg = "Please wait while we upload your file!"
     };
+    this.uploader.onProgressItem = (progress: any) => {
+      this.progress = progress['progress'];
+      console.log(progress['progress']);
+    };
     this.uploader.onAfterAddingFile = (file) => {
       file.withCredentials = false;
       this.msg = "Click upload and wait few seconds until the file gets uploaded!"
@@ -75,6 +80,7 @@ export class UploadComponent implements OnInit {
     };
     this.uploader.onCompleteItem = (item: any, status: any) => {
       this.msg = "File uploaded!"
+      //location.href = "/faculty/upload"
     };
   }
 

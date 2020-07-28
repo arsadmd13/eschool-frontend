@@ -13,7 +13,8 @@ export class VideoComponent{
 
   role: string;
   username: string;
-
+  msg: string;
+  
   videosArray = [];
 
 
@@ -37,20 +38,14 @@ export class VideoComponent{
     this.videoService.readAll().subscribe(
       (res: any) => {
         if(res.status === 200) {
-          //this.pResp.nativeElement.innerText = "";
           this.videosArray = res.videos;
         } else if(res.status === 404) {
-          console.log(res);
-
-          //this.pResp.nativeElement.innerText = "No Orders Found";
+          this.msg = "No videos Found!";
         } else {
-          //this.pResp.nativeElement.innerText = "Oops! Problem Occured, Please Try Again Later.";
+          this.msg = res.message;
         }
-        // console.log(res);
-
       }, (error) => {
-        //this.pResp.nativeElement.innerText = "Oops! Problem Occured, Please Try Again Later.";
-        // console.log(error);
+        this.msg = "We hit a road block while processing your request!"
       }
     );
 
