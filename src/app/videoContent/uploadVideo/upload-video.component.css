@@ -1,0 +1,26 @@
+.videoShowCase{
+  display: inline-flex;
+  width: 220px;
+  margin: 2rem ;
+  margin-bottom: 20px;
+  padding-bottom: 200px;
+  border: 10px solid #ccc;
+}
+
+.content{
+  padding-top: 50px;
+}
+
+.heading{
+  padding-top: 50px;
+  display:inline;
+}
+
+.form-file{
+  width: 300px;
+  display:inline;
+}
+
+input{
+  display:inline !important;
+}

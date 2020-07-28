@@ -1,0 +1,15 @@
+input{
+  border-bottom: 1px solid #ccc;
+}
+
+.logo{
+  padding-top: 155px;
+}
+
+.form{
+  padding-top: 25px;
+}
+
+.btn{
+  margin-bottom: 1.5rem;
+}

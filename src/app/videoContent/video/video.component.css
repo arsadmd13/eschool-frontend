@@ -1,0 +1,27 @@
+.videoShowCase{
+  display: inline-flex;
+  width: 270px;
+  margin: 2rem ;
+  margin-bottom: 20px;
+  padding-bottom: 200px;
+  border: 10px solid #ccc;
+}
+
+.content{
+  padding-top: 50px;
+  width: 100%;
+}
+
+.heading{
+  padding-top: 50px;
+}
+
+.videoContainer{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.title{
+  margin-bottom: 20px;
+  color: #1266f1;
+}

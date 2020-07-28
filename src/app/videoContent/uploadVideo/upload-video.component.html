@@ -1,0 +1,27 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <div class="content d-flex justify-content-evenly">
+        <div class="heading">
+          <h3>Upload</h3>
+        </div>
+      </div>
+      <div class="content d-flex justify-content-evenly">
+        <div class="" id="fileSelector">
+            <input class="" type="file" name="fileUpload" id="fileUpload" ng2FileSelect [uploader]="uploader"/>
+        </div>
+        <button class="btn btn-primary" type="button" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+          Upload
+        </button>
+      </div>
+      <div class="{{msg ? 'alert alert-success alert-dismissible fade show' : 'alert alert-danger alert-dismissible fade hide'}}" role="alert" style="margin-top:10px;" *ngIf="msg != ''">
+        {{msg}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+</div>

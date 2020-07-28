@@ -1,0 +1,10 @@
+<form class="form-control needs-validation" (submit)="onCommentAdded(commentForm)" #commentForm="ngForm">
+  <div class="form-outline mb-4">
+    <textarea class="form-control" name="commentText" rows="3" cols="80" ngModel required #commentText="ngModel"></textarea>
+    <label class="form-label" for="commentText">Comment...</label>
+    <div class="invalid-feedback w-auto" *ngIf="commentText.invalid">
+      Please choose a username.
+    </div>
+  </div>
+  <button #commentSubmit type="submit" class="btn btn-primary btn-block">Add Comment</button>
+</form>

@@ -1,0 +1,7 @@
+.custom-comment-div{
+  padding-top: 20px;
+  height: 400px;
+  overflow-y: auto;
+  position: relative;
+
+}

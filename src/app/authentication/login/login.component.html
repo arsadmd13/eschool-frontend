@@ -1,0 +1,50 @@
+<div class="container-fluid">
+
+  <div class="row">
+
+    <div class="col-md-3"></div>
+
+    <div class="col-md-6">
+
+      <div class="content">
+
+        <div class="logo d-flex align-items-center justify-content-center">
+          <img style="margin:20px;" src="https://nameless-plateau-81910.herokuapp.com/img/logo.png" alt="" width="200px" height="70px">
+        </div>
+
+        <form #loginForm class="form">
+
+          <div class="form-outline mb-4">
+            <input type="email" #loginEmail ngModel name="email" id="email" class="form-control" />
+            <label class="form-label" for="email">Email address</label>
+          </div>
+
+          <div class="form-outline mb-4">
+            <input type="password" #loginPassword ngModel name="password" id="password" class="form-control" />
+            <label class="form-label" for="password">Password</label>
+          </div>
+
+          <button #loginSubmit type="submit" class="btn btn-primary btn-block" >Sign in</button>
+          <a class="btn btn-primary btn-block" href='{{alternate}}'>Register</a>
+          <a class="btn btn-primary btn-block" href='/'>Back</a>
+
+          <div #loginResponse class="text-danger text-center mb-2"></div>
+
+        </form>
+
+        <div class="{{msg ? 'alert alert-danger alert-dismissible fade show' : 'alert alert-danger alert-dismissible fade hide'}}" role="alert" style="margin-top:10px;" *ngIf="msg != ''">
+          {{msg}}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-md-3"></div>
+
+  </div>
+
+</div>
