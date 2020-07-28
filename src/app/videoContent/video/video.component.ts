@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core"
 import { VideoService } from '../../services/video/video.service';
+import { ActivatedRoute, Params, Router, UrlSegment } from '@angular/router';
 
 
 @Component({
@@ -16,13 +17,21 @@ export class VideoComponent{
   videosArray = [];
 
 
-  constructor(public videoService:VideoService) {
+  constructor(private route: ActivatedRoute, public videoService:VideoService) {
 
     this.role = sessionStorage.getItem('role');
     this.username = sessionStorage.getItem('username');
 
     if(this.role == undefined){
       location.href = '/'
+    }
+
+    let path = this.route.snapshot.url.join('/');
+
+    if(path == "student/video" && this.role == "1"){
+      this.alternate = "/faculty/video";
+    } else if(path == "faculty/video" && this.role == "0"){
+      this.alternate = "/student/video";
     }
 
     this.videoService.readAll().subscribe(
