@@ -24,9 +24,9 @@ export class HomeComponent{
     let path = this.route.snapshot.url.join('/');
 
     if(path == "student/home" && this.role == "1"){
-      this.alternate = "/faculty/home";
+      location.href = "/faculty/home";
     } else if(path == "faculty/home" && this.role == "0"){
-      this.alternate = "/student/home";
+      location.href = "/student/home";
     }
 
 

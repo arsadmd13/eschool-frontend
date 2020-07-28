@@ -29,9 +29,9 @@ export class VideoComponent{
     let path = this.route.snapshot.url.join('/');
 
     if(path == "student/video" && this.role == "1"){
-      this.alternate = "/faculty/video";
+      location.href = "/faculty/video";
     } else if(path == "faculty/video" && this.role == "0"){
-      this.alternate = "/student/video";
+      location.href = "/student/video";
     }
 
     this.videoService.readAll().subscribe(
