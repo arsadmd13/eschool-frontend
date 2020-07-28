@@ -31,7 +31,7 @@ import { ToastrService } from 'ngx-toastr';
 
 
 
-const URL = 'http://localhost:3000/video/upload'//'https://nameless-plateau-81910.herokuapp.com/video/upload';
+const URL = 'https://nameless-plateau-81910.herokuapp.com/video/upload';
 
 @Component({
   selector: 'app-upload',
