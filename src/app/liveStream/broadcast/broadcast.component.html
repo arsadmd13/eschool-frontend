@@ -1,11 +1,12 @@
 
 <div class="container-fluid">
-  <div class="row">
+  <!-- <div class="row">
     <div class="col-md-2"></div>
-    <div class="col-md-8">
-      <iframe class="iframe" allow="camera;microphone;" id="iframe" src="https://nameless-plateau-81910.herokuapp.com/streamlive" style="display:block;width:100%;height:700px;"></iframe>
-      <app-comments></app-comments>
+    <div class="col-md-8"> -->
+      <iframe class="iframe" allow="camera;microphone;" id="iframe" src="https://nameless-plateau-81910.herokuapp.com/streamlive" style="display:block;width:100%;height:700px;" onload="sendData()" ></iframe>
+      <!-- <app-comments></app-comments>
     </div>
     <div class="col-md-2"></div>
-  </div>
+  </div> -->
 </div>
+<input type="hidden" id="username" value='{{username}}'>

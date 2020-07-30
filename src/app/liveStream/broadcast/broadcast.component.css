@@ -5,5 +5,9 @@
   padding-top: 50px;
 }
 .iframe{
-  margin-top: 20px;
+}
+
+.container-fluid{
+  margin: 0 !important;
+  padding: 0% !important;
 }
