@@ -18,6 +18,10 @@
   <script type="text/javascript" src="assets/custom-script.js"></script>
   <script src="https://cdn.plyr.io/3.6.2/plyr.js"></script>
   <script>
+    function sendData(){
+      let frame = document.getElementById('iframe');
+      frame.contentWindow.postMessage(document.getElementById('username').value, 'https://nameless-plateau-81910.herokuapp.com');
+    }
   </script>
 </body>
 </html>
