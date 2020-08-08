@@ -9,62 +9,75 @@ import { ActivatedRoute, Params, Router, UrlSegment } from '@angular/router';
 })
 export class PlansComponent implements OnInit {
 
-  @ViewChild('loginForm', {static: true}) loginForm: ElementRef;
+  @ViewChild('planForm', {static: true}) planForm: ElementRef;
 
   msg: string;
   userId: string;
   username: string;
   role: string;
+  subStatus: string;
+  subPlan: string;
   selected: string;
+  showplans: boolean;
+  smsg: string = "";
+  wmsg: string = "";
+  dmsg: string = "";
 
   constructor(private route: ActivatedRoute, public cartService: CartService) { 
 
     this.role = sessionStorage.getItem('role');
     this.userId = sessionStorage.getItem('userid');
     this.username = sessionStorage.getItem('username');
+    this.subStatus = sessionStorage.getItem('subStatus');
+    this.subPlan = sessionStorage.getItem('subPlan');
+    
 
+    this.showplans = true;
 
     if(this.role !== "0"){
       location.href = "/"
     }
 
+    if(this.subStatus === "NN"){
+      this.showplans = false;
+      this.wmsg = "You don't need a subscription plan for our services!";
+    }
+
   }
 
   ngOnInit(): void {
+  }
 
-    this.loginForm.nativeElement.addEventListener("submit", (event) => {
-
-      this.msg = "Processing your request..."
-
-      console.log(this.selected);
-      
-
-      var plan = this.selected;  
-
-      var data = {
-        userId: this.userId,
-        item: plan.split(" ")[1],
-        amount: plan.split(" ")[1],
-        fullplanname: plan,
-        secTkn: sessionStorage.getItem('jwtToken')
-      }      
-
-      this.cartService.create(data).subscribe(
-        (res: any) => {
-          if(res.status == 200){
-            this.msg = "Added to cart";
-          } else {
-            console.log(res);
-            
-            this.msg = "Unable to add the plan to the cart";
+  addToCart(){
+    this.wmsg = "Processing your request..."      
+  
+        var plan = this.selected;  
+  
+        var data = {
+          userId: this.userId,
+          item: plan.split(" ")[1],
+          amount: plan.split(" ")[1],
+          fullplanname: plan,
+          secTkn: sessionStorage.getItem('jwtToken')
+        }      
+  
+        this.cartService.create(data).subscribe(
+          (res: any) => {
+            if(res.status == 200){
+              this.wmsg = "";
+              this.dmsg = "";
+              this.smsg = "Added to cart";
+            } else {
+              this.smsg = "";
+              this.wmsg = "";
+              this.dmsg = res.message
+            }
+          }, (error) => {
+            this.smsg = "";
+            this.wmsg = "";
+            this.dmsg = "We hit a road block while processing your request";
           }
-        }, (error) => {
-          this.msg = "We hit a road block while processing your request";
-        }
-      )
-
-    });
-
+        )
   }
 
 }

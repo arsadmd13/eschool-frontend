@@ -53,6 +53,7 @@ export class RegisterComponent implements OnInit{
 
       event.preventDefault();
 
+      document.getElementById('alert').classList.replace('alert-danger', 'alert-warning');
       this.msg = "Please wait while we process your request!"
 
       let path = this.route.snapshot.url.join('/');
@@ -74,27 +75,30 @@ export class RegisterComponent implements OnInit{
         rtype: "OR"
       };
 
+      //console.log(data);
+      
       this.authenticationService.create(data).subscribe(
         (res: any) => {
           if(res.status === 200) {
 
             this.regReset.nativeElement.click();
+            document.getElementById('alert').classList.replace('alert-warning', 'alert-success');
             this.msg = "Registered Successfully!";
 
             setTimeout(() => {
               if(role == 1) {
                 location.href = "/faculty/login";
               } else {
-                location.href = "/student/lohin";
+                location.href = "/student/login";
               }
             }, 5000);
 
-          } else if(res.status === 404) {
-            this.msg = res.message;
           } else {
+            document.getElementById('alert').classList.replace('alert-warning', 'alert-danger');
             this.msg = res.message;
           }
         }, (error) => {
+          document.getElementById('alert').classList.replace('alert-warning', 'alert-danger');
           this.msg = "We hit a road block while processing your request!";
          }
       );
@@ -102,5 +106,5 @@ export class RegisterComponent implements OnInit{
     });
 
   }
-  
+
 }

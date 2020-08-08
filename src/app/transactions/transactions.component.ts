@@ -9,7 +9,7 @@ import { ActivatedRoute, Params, Router, UrlSegment } from '@angular/router';
 })
 export class TransactionsComponent implements OnInit {
 
-  msg: string;
+  msg: string = "";
   userId: string;
   username: string;
   role: string;
@@ -25,6 +25,9 @@ export class TransactionsComponent implements OnInit {
       location.href = "/"
     }
 
+    document.getElementById('alert').classList.replace('alert-danger', 'alert-warning');
+    this.msg = "Plase wait while we fetch data from our server...";
+
     const data = {
       userId: this.userId,
       secTkn: sessionStorage.getItem('jwtToken')
@@ -33,13 +36,14 @@ export class TransactionsComponent implements OnInit {
     this.checkoutService.read(data).subscribe(
       (res: any) => {
         if(res.status === 200) {
+          this.msg = "";
           this.transactions = res.orders;
-        } else if(res.status === 404) {
-          this.msg = "No Items Found!";
         } else {
+          document.getElementById('alert').classList.replace('alert-warning', 'alert-danger');
           this.msg = res.message;
         }
       }, (error) => {
+        document.getElementById('alert').classList.replace('alert-warning', 'alert-danger');
         this.msg = "We hit a road block while processing your request!"
       }
     );

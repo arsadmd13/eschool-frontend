@@ -24,6 +24,7 @@ export class AddUserComponent implements OnInit {
     this.role = sessionStorage.getItem('role');
     this.userId = sessionStorage.getItem('userid');
     this.username = sessionStorage.getItem('username');
+    document.getElementById('alert').classList.replace('alert-danger', 'alert-warning');
     this.msg = "Users added here will have the password same as their email-id";
 
     if(this.role !== "2"){
@@ -38,6 +39,8 @@ export class AddUserComponent implements OnInit {
 
       event.preventDefault();
 
+      document.getElementById('alert').classList.replace('alert-success', 'alert-warning')
+      document.getElementById('alert').classList.replace('alert-danger', 'alert-warning')
       this.msg = "Please wait while we process your request..."
 
       if(this.selected === "faculty"){
@@ -62,12 +65,14 @@ export class AddUserComponent implements OnInit {
         (res: any) => {
           if(res.status === 200) {
             this.regReset.nativeElement.click();
-            document.getElementById('alert').classList.replace('alert-danger', 'alert-success');
+            document.getElementById('alert').classList.replace('alert-warning', 'alert-success');
             this.msg = "User added!";
           } else {
+            document.getElementById('alert').classList.replace('alert-warning', 'alert-danger')
             this.msg = res.message;
           }
         }, (error) => {
+          document.getElementById('alert').classList.replace('alert-warning', 'alert-danger')
           this.msg = "We hit a road block while processing your request!";
         }
       )

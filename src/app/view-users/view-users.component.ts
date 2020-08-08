@@ -10,12 +10,12 @@ import { ActivatedRoute, Params, Router, UrlSegment } from '@angular/router';
 export class ViewUsersComponent implements OnInit {
 
   msg: string;
-  fmsg: string;
-  smsg: string;
   userId: string;
   username: string;
   role: string;
   caption: string;
+  wmsg: string = "";
+  dmsg: string = "";
 
   fusers = []
   susers = []
@@ -29,6 +29,8 @@ export class ViewUsersComponent implements OnInit {
       location.href = "/"
     }
 
+    this.wmsg = "Plase wait while we fetch data from our server...";
+
     const data = {
       secTkn: sessionStorage.getItem('jwtToken')
     }
@@ -40,18 +42,22 @@ export class ViewUsersComponent implements OnInit {
           this.susers = res.susers;
           this.caption = "NN-'Not Needed';    NA-'Not Available';    AV-'Available'";
           if(this.fusers.length === 0 && this.susers.length === 0){
-            this.msg = "No users found!";
+            this.wmsg = "";
+            this.dmsg = "No users found!";
           } else {
+            this.wmsg = "";
             if(this.fusers.length === 0)
-              this.fmsg = "No users found in this section!"
+              this.dmsg = "No users found in faculty section!"
             if(this.susers.length === 0)
-              this.smsg = "No users found in this section!"
+              this.dmsg = "No users found in student section!"
           }
         } else {
-          this.msg = res.message;
+          this.wmsg = "";
+          this.dmsg = res.message;
         }
       }, (error) => {
-        this.msg = "We hit a road block while processing your request!"
+        this.wmsg = "";
+        this.msg = "dWe hit a road block while processing your request!"
       }
     );
 

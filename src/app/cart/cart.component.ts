@@ -109,19 +109,22 @@ export class CartComponent implements OnInit {
                       this.checkoutService.updateOrder(cdata).subscribe(
                         (ures: any) => {
                           if(ures.status == 200){
+                            document.getElementById('alert').classList.replace('show', 'hide');
                             document.getElementById('alert').classList.replace('hide', 'show');
                             if(document.getElementById('alert').innerText !== "Order Failed!")
                               document.getElementById('alert').innerText = "Order Cancelled!";
                             document.getElementById('checkoutbtn').innerText = "Checkout";
                           } else {
+                            document.getElementById('alert').classList.replace('show', 'hide');
                             document.getElementById('alert').classList.replace('hide', 'show');
-                            document.getElementById('alert').innerText = "Order Failed!";
+                            document.getElementById('alert').innerText !== "Order Cancelled!"
                             document.getElementById('checkoutbtn').innerText = "Checkout";
                           }
                         }, (error) => {
+                          document.getElementById('alert').classList.replace('show', 'hide');
                           document.getElementById('alert').classList.replace('hide', 'show');
-                            document.getElementById('alert').innerText = "Order Failed!";
-                            document.getElementById('checkoutbtn').innerText = "Checkout";
+                          document.getElementById('alert').innerText = "Order Failed!";
+                          document.getElementById('checkoutbtn').innerText = "Checkout";
                         }
                       )
                   })
@@ -170,18 +173,21 @@ export class CartComponent implements OnInit {
     this.checkoutService.updateOrder(cdata).subscribe(
       (ures: any) => {        
         if(ures.status == 200){
+          document.getElementById('alert').classList.replace('show', 'hide');
           document.getElementById('alert').classList.replace('hide', 'show');
           document.getElementById('alert').innerText = "Order Failed!";
           document.getElementById('checkoutbtn').innerText = "Checkout";
         } else {
+          document.getElementById('alert').classList.replace('show', 'hide');
           document.getElementById('alert').classList.replace('hide', 'show');
           document.getElementById('alert').innerText = "Order Failed!";
           document.getElementById('checkoutbtn').innerText = "Checkout";
         }
       }, (error) => {
+        document.getElementById('alert').classList.replace('show', 'hide');
         document.getElementById('alert').classList.replace('hide', 'show');
-          document.getElementById('alert').innerText = "Order Failed!";
-          document.getElementById('checkoutbtn').innerText = "Checkout";
+        document.getElementById('alert').innerText = "Order Failed!";
+        document.getElementById('checkoutbtn').innerText = "Checkout";
       }
     )
     })
@@ -201,6 +207,7 @@ export class CartComponent implements OnInit {
       this.checkoutService.updateOrder(cdata).subscribe(
         (ures: any) => {
           if(ures.status == 200){
+            document.getElementById('alert').classList.replace('show', 'hide');
             document.getElementById('alert').classList.replace('hide', 'show');
             document.getElementById('alert').classList.replace('alert-danger', 'alert-success')
             document.getElementById('alert').innerHTML = "Order Succcessfull!<br>This page will automatically upade within 5 seconds";
@@ -213,13 +220,11 @@ export class CartComponent implements OnInit {
               location.href = "student/videos"
             }, 5000);
           } else {
-            document.getElementById('alert').classList.replace('hide', 'show');
-            document.getElementById('alert').innerText = "Order Failed!";
+            this.msg = "Order Failed!";
             document.getElementById('checkoutbtn').innerText = "Checkout";
           }
         }, (error) => {
-          document.getElementById('alert').classList.replace('hide', 'show');
-          document.getElementById('alert').innerText = "Order Failed!";
+          this.msg = "Order Failed!";
           document.getElementById('checkoutbtn').innerText = "Checkout";
       }
     )

@@ -41,7 +41,7 @@
               </div>
           </div>
   
-          <div id="alert" class="{{msg ? 'alert alert-danger alert-dismissible fade show' : 'alert alert-danger alert-dismissible fade hide'}}" role="alert" style="margin-top:10px;" *ngIf="msg != ''">
+          <div id="alert" class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top:10px;" *ngIf="msg !== ''">
             {{msg}}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
               <span aria-hidden="true">&times;</span>

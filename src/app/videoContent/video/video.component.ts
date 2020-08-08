@@ -16,6 +16,9 @@ export class VideoComponent{
   msg: string;
   quota:string;
   subStatus: string;
+  smsg: string = "";
+  wmsg: string = "";
+  dmsg: string = "";
   
   videosArray = [];
 
@@ -53,6 +56,13 @@ export class VideoComponent{
       } 
     }
 
+    if(this.subStatus === "NA"){
+      this.dmsg = "Please purchase a plan to avail video resources";
+      return
+    }
+
+    this.wmsg = "Plase wait while we fetch data from our server...";
+
     const data = {
       secTkn: sessionStorage.getItem('jwtToken')
     }
@@ -60,24 +70,24 @@ export class VideoComponent{
     this.videoService.readAll(data).subscribe(
       (res: any) => {
         if(res.status === 200) {
+          this.wmsg = "";
           if(this.subStatus === "AV"){
             this.videosArray = res.videos
             var len = this.videosArray.length
             if(len > parseInt(this.quota))
               this.videosArray = this.videosArray.slice(0,parseInt(this.quota));
-           } else if(this.subStatus === "NN"){
+          } else if(this.subStatus === "NN"){
             this.videosArray = res.videos
-           } else {
-             document.getElementById('alertclose').style.display = 'none'
-             this.msg = "Please purchase a plan to avail video resources";
-           }
-        } else if(res.status === 404) {
-          this.msg = "No videos Found!";
+          } 
         } else {
-          this.msg = res.message;
+          this.smsg = "";
+          this.wmsg = "";
+          this.dmsg = res.message;
         }
       }, (error) => {
-        this.msg = "We hit a road block while processing your request!"
+        this.smsg = "";
+        this.wmsg = "";
+        this.dmsg = "We hit a road block while processing your request!"
       }
     );
 

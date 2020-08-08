@@ -52,6 +52,7 @@ export class UploadComponent implements OnInit {
   userid: string;
   msg: string;
   progress: string;
+  style: string;
 
   constructor(private toastr: ToastrService) {
 
@@ -73,7 +74,7 @@ export class UploadComponent implements OnInit {
     };
     this.uploader.onProgressItem = (progress: any) => {
       this.progress = progress['progress'];
-      console.log(progress['progress']);
+      document.getElementById('progress-bar').style.width = progress['progress'] + '%';
     };
     this.uploader.onAfterAddingFile = (file) => {
       file.withCredentials = false;
@@ -82,7 +83,6 @@ export class UploadComponent implements OnInit {
     };
     this.uploader.onCompleteItem = (item: any, status: any) => {
       this.msg = "File uploaded!"
-      //location.href = "/faculty/upload"
     };
   }
 

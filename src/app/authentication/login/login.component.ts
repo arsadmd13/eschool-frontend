@@ -53,6 +53,7 @@ export class LoginComponent implements OnInit{
 
       event.preventDefault();
 
+      document.getElementById('alert').classList.replace('alert-danger', 'alert-warning');
       this.msg = "Please wait while we process your request...";
 
       let path = this.route.snapshot.url.join('/');
@@ -73,8 +74,7 @@ export class LoginComponent implements OnInit{
         role: role
       };
 
-      console.log(data);
-
+      //console.log(data);
 
       this.authenticationService.read(data).subscribe(
         (res: any) => {
@@ -82,6 +82,7 @@ export class LoginComponent implements OnInit{
           if(res.status === 200) {
 
             this.loginReset.nativeElement.click();
+            document.getElementById('alert').classList.replace('alert-warning', 'alert-success');
             this.msg = "Login Successfull!";
 
             sessionStorage.setItem('userid', res.user._id);
@@ -102,19 +103,22 @@ export class LoginComponent implements OnInit{
                 location.href = "/faculty/home";
               } else if(role === 2) {
                 location.href = "/admin/home";
-              } else {
+              } else {                
                 if(res.user.subscription.status === "NA"){
                   location.href = "/student/plans";
+                  return
                 }
                 location.href = "/student/home";
               }
             }, 3000);
 
           } else {
+            document.getElementById('alert').classList.replace('alert-warning', 'alert-danger');
             this.msg = res.message;
           }
 
         }, (error) => {
+          document.getElementById('alert').classList.replace('alert-warning', 'alert-danger');
           this.msg = "We hit a road block while processing your request!";
         }
       );

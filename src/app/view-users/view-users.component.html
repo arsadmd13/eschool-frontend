@@ -73,12 +73,18 @@
             </table>
           </div>
   
-          <div id="alert" class="{{msg ? 'alert alert-danger alert-dismissible fade show' : 'alert alert-danger alert-dismissible fade hide'}}" role="alert" style="margin-top:10px;" *ngIf="msg != ''">
-            {{msg}}
+          <div class="alert alert-warning alert-dismissible fade show" role="alert" style="margin-top:10px;" *ngIf="wmsg !== ''">
+            {{wmsg}}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
+            <span aria-hidden="true">&times;</span>
             </button>
-          </div>
+        </div>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top:10px;" *ngIf="dmsg !== ''">
+            {{dmsg}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
   
         </div>
   
