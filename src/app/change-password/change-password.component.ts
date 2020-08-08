@@ -74,7 +74,7 @@ export class ChangePasswordComponent implements OnInit {
             document.getElementById('alert').classList.replace('alert-warning', 'alert-success');
             this.msg = "Password Updated!";
             this.passReset.nativeElement.click();
-            location.href = "/";
+            location.href = "/logout";
           } else {
             document.getElementById('alert').classList.replace('alert-warning', 'alert-danger');
             this.msg = res.message;
