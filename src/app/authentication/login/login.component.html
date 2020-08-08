@@ -25,10 +25,9 @@
           </div>
 
           <button #loginSubmit type="submit" class="btn btn-primary btn-block" >Sign in</button>
-          <a class="btn btn-primary btn-block" href='{{alternate}}'>Register</a>
+          <a class="btn btn-primary btn-block" href='{{alternate}}' *ngIf="!noregister">Register</a>
           <a class="btn btn-primary btn-block" href='/'>Back</a>
-
-          <div #loginResponse class="text-danger text-center mb-2"></div>
+          <button #loginReset type="reset" class="btn btn-primary btn-block" style="display: none;" >Reset</button>
 
         </form>
 

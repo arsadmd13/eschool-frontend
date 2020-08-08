@@ -11,7 +11,6 @@ import { NavbarModule, WavesModule, ButtonsModule, IconsModule } from 'angular-b
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -28,9 +27,13 @@ import { AuthenticationService } from './services/authentication/authentication.
 import { WelcomeComponent } from './welcome/welcome.component';
 import { HomeComponent } from './home/home.component';
 import { LogoutComponent } from "./authentication/logout/logout.component";
-
-//import { LsComponent } from './ls/ls.component';
-
+import { CartComponent } from './cart/cart.component';
+import { PlansComponent } from './plans/plans.component';
+import { TransactionsComponent } from './transactions/transactions.component';
+import { AddUserComponent } from './add-user/add-user.component';
+import { ViewUsersComponent } from './view-users/view-users.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { OrderListComponent } from './order-list/order-list.component';
 
 @NgModule({
   declarations: [
@@ -47,8 +50,14 @@ import { LogoutComponent } from "./authentication/logout/logout.component";
     AddCommentComponent,
     WelcomeComponent,
     HomeComponent,
-    LogoutComponent
-    //LsComponent
+    LogoutComponent,
+    CartComponent,
+    PlansComponent,
+    TransactionsComponent,
+    AddUserComponent,
+    ViewUsersComponent,
+    ChangePasswordComponent,
+    OrderListComponent
   ],
   imports: [
     BrowserModule,

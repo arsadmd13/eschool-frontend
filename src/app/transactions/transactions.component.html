@@ -1,0 +1,60 @@
+<div class="container-fluid">
+
+    <div class="row">
+  
+      <div class="col-md-1"></div>
+  
+      <div class="col-md-10">
+  
+        <div class="content">
+  
+          <div class="heading d-flex align-items-center justify-content-center">
+            <p>Transactions</p>
+          </div>
+  
+          <div class="cart d-flex align-items-center justify-content-center">
+
+            <div class="table-responsive">
+
+            <table class="table justify-content-center">
+                <thead>
+                  <tr>
+                    <th scope="col">#Order Id</th>
+                    <th scope="col">Item</th>
+                    <th scope="row" class="item-value">Transaction Value</th>
+                    <th scope="col">Transaction Date</th>
+                    <th scope="col">Transaction Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let transaction of transactions;">
+                    <th scope="row">{{transaction.order_id}}</th>
+                    <td>{{transaction.item}}</td>
+                    <td>{{transaction.currency}} {{transaction.amount}}</td>
+                    <td>{{transaction.ocd}}</td>
+                    <td>{{transaction.order_status}}</td>
+                </tr>
+                </tbody>
+                <tfoot>
+                </tfoot>
+              </table>
+              </div>
+          </div>
+  
+          <div id="alert" class="{{msg ? 'alert alert-danger alert-dismissible fade show' : 'alert alert-danger alert-dismissible fade hide'}}" role="alert" style="margin-top:10px;" *ngIf="msg != ''">
+            {{msg}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+  
+        </div>
+  
+      </div>
+  
+      <div class="col-md-1"></div>
+  
+    </div>
+  
+  </div>
+  

@@ -10,28 +10,40 @@ import { ActivatedRoute, Params, Router, UrlSegment } from '@angular/router';
 
 export class LoginComponent implements OnInit{
 
+  public hoverImg: string = '<img src="https://mdbootstrap.com/img/logo/mdb192x192.jpg"/>';
+
+
   @ViewChild('loginEmail', {static: true}) loginEmail: ElementRef;
   @ViewChild('loginPassword', {static: true}) loginPass: ElementRef;
   @ViewChild('loginForm', {static: true}) loginForm: ElementRef;
+  @ViewChild('loginReset', {static: true}) loginReset: ElementRef;
 
   alternate: string;
   msg: string;
   role: string;
+  noregister: boolean;
 
   constructor(private route: ActivatedRoute, public authenticationService: AuthenticationService){
 
     this.role = sessionStorage.getItem('role');
+    this.noregister = false;
 
-    if(this.role != undefined){
-      location.href = "/"
+    if(this.role === "1"){
+      location.href = "faculty/home";
+    } else if(this.role === "0"){
+      location.href = "student/home"
+    } else if(this.role === "2"){
+      location.href = "admin/home"
     }
 
     let path = this.route.snapshot.url.join('/');
 
     if(path === "faculty/login"){
       this.alternate = "/faculty/register";
-    } else {
+    } else if(path === "student/login"){
       this.alternate = "/student/register";
+    } else {
+      this.noregister = true;
     }
   }
 
@@ -49,6 +61,8 @@ export class LoginComponent implements OnInit{
 
       if(path === "faculty/login"){
         role = 1;
+      } else if(path === "admin/login") {
+        role = 2;
       } else {
         role = 0;
       }
@@ -67,24 +81,38 @@ export class LoginComponent implements OnInit{
 
           if(res.status === 200) {
 
+            this.loginReset.nativeElement.click();
             this.msg = "Login Successfull!";
 
             sessionStorage.setItem('userid', res.user._id);
             sessionStorage.setItem('username', res.user.name);
             sessionStorage.setItem('role', res.user.role);
+            sessionStorage.setItem('email', res.user.email);
+            sessionStorage.setItem('subStatus', res.user.subscription.status)
+            sessionStorage.setItem('subPlan', res.user.subscription.plan);
+            sessionStorage.setItem('jwtToken', res.token);
 
-            if(role == 1) {
-              location.href = "/faculty/home";
-            } else {
-              location.href = "/student/home";
+            if(res.user.subscription.status !== "NA" || res.user.subscription.status !== "NN"){
+              var quota = res.user.subscription.plan.split(" ")[4];
+              sessionStorage.setItem('subQuota', quota);
             }
 
-          } else if(res.status === 404) {
-            this.msg = res.message;
+            setTimeout(() => {
+              if(role === 1) {
+                location.href = "/faculty/home";
+              } else if(role === 2) {
+                location.href = "/admin/home";
+              } else {
+                if(res.user.subscription.status === "NA"){
+                  location.href = "/student/plans";
+                }
+                location.href = "/student/home";
+              }
+            }, 3000);
+
           } else {
             this.msg = res.message;
           }
-          // console.log(res);
 
         }, (error) => {
           this.msg = "We hit a road block while processing your request!";
@@ -94,9 +122,5 @@ export class LoginComponent implements OnInit{
     });
 
   }
-
-
-
-
 
 }

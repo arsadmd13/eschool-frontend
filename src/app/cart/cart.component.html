@@ -1,0 +1,64 @@
+<div class="container-fluid">
+
+    <div class="row">
+  
+      <div class="col-md-2"></div>
+  
+      <div class="col-md-8">
+  
+        <div class="content">
+  
+          <div class="heading d-flex align-items-center justify-content-center">
+            <p>Cart</p>
+          </div>
+  
+          <div class="table-responsive d-flex align-items-center justify-content-center">
+
+          <table class="table justify-content-center">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Item</th>
+                  <th scope="row" class="item-value">Value</th>
+                  <th>Remove</th>
+                 </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of cartItem;">
+                  <th scope="row">1</th>
+                  <td class="item-name" id="itemName">{{item.fullplanname}}</td>
+                  <td>{{item.amount}}</td>
+                  <td id='{{item.fullplanname}}' (click)="remove()" style="cursor: pointer;">Remove</td>
+              </tr>
+              </tbody>
+              <tfoot>
+                <tr *ngFor="let item of cartItem;">
+                  <th scope="row" colspan="2">Total Value</th>
+                  <td id="totalVal">{{item.amount}}</td>
+                  <td></td>
+                </tr>
+              </tfoot>
+          </table>
+        </div>
+
+        <div class="d-flex align-items-center justify-content-center">
+          <button class="btn btn-primary btn-block" id="checkoutbtn" disabled="{{buttonDisabled}}">Checkout</button>
+        </div>
+  
+        <div id="alert" class="{{msg ? 'alert alert-danger alert-dismissible fade show' : 'alert alert-danger alert-dismissible fade hide'}}" role="alert" style="margin-top:10px;" *ngIf="msg != ''">
+          {{msg}}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+  
+      </div>
+  
+    </div>
+  
+    <div class="col-md-2"></div>
+  
+  </div>
+  
+</div>
+  

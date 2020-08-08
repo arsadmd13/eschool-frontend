@@ -1,0 +1,8 @@
+.heading{
+    padding-top: 50px;
+    font-size: 30px;
+}
+
+.form-outline{
+    border-bottom: 0px solid #ccc !important;
+}

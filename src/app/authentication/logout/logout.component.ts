@@ -14,10 +14,14 @@ export class LogoutComponent{
 
     this.role = sessionStorage.getItem('role');
 
-    if(this.role != undefined){
+    if(this.role !== undefined){
       sessionStorage.removeItem('role');
       sessionStorage.removeItem('username');
       sessionStorage.removeItem('userid');
+      sessionStorage.removeItem('subStatus');
+      sessionStorage.removeItem('subPlan');
+      sessionStorage.removeItem('subQuota');
+      sessionStorage.removeItem('jwtToken');
     }
 
     location.href = "/";

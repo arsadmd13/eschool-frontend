@@ -7,6 +7,10 @@
   padding-top:100px;
 }
 
-.selector{
+.selector-first{
   padding-top: 100px;
+}
+
+.selector{
+  padding-top: 40px;
 }

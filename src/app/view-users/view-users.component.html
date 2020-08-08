@@ -1,0 +1,92 @@
+<div class="container-fluid">
+
+    <div class="row">
+  
+      <div class="col-md-1"></div>
+  
+      <div class="col-md-10">
+  
+        <div class="content">
+  
+          <div class="heading d-flex align-items-center justify-content-center">
+            <p>Users</p>
+          </div>
+
+          <div class="sub-heading d-flex align-items-center justify-content-center">
+            <p>Faculty</p>
+          </div>
+  
+            <div class="table-responsive">
+
+            <table class="table table-striped table-hover justify-content-center">
+                <thead>
+                  <tr>
+                    <th scope="col">Username</th>
+                    <th scope="col">Email-Id</th>
+                    <th scope="col">Subscription Status</th>
+                    <th scope="col">Subscription Plan</th>
+                    <th scope="col">Date of registration</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let fuser of fusers;">
+                    <th scope="row">{{fuser.name}}</th>
+                    <td>{{fuser.email}}</td>
+                    <td>{{fuser.subscription.status}}</td>
+                    <td>{{fuser.subscription.plan}}</td>
+                    <td>{{fuser.dateofreg}}</td>
+                </tr>
+                </tbody>
+                <tfoot>
+                </tfoot>
+              </table>
+              </div>
+
+          <div class="sub-heading d-flex align-items-center justify-content-center">
+              <p>Students</p>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-striped table-hover justify-content-center">
+              <caption>
+                  {{caption}}
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Username</th>
+                  <th scope="col">Email-Id</th>
+                  <th scope="col">Subscription Status</th>
+                  <th scope="col">Subscription Plan</th>
+                  <th scope="col">Date of registration</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let suser of susers;">
+                  <th scope="row">{{suser.name}}</th>
+                  <td>{{suser.email}}</td>
+                  <td>{{suser.subscription.status}}</td>
+                  <td>{{suser.subscription.plan}}</td>
+                  <td>{{suser.dateofreg}}</td>
+                </tr>
+              </tbody>
+              <tfoot>
+              </tfoot>
+            </table>
+          </div>
+  
+          <div id="alert" class="{{msg ? 'alert alert-danger alert-dismissible fade show' : 'alert alert-danger alert-dismissible fade hide'}}" role="alert" style="margin-top:10px;" *ngIf="msg != ''">
+            {{msg}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+  
+        </div>
+  
+      </div>
+  
+      <div class="col-md-1"></div>
+  
+    </div>
+  
+  </div>
+  

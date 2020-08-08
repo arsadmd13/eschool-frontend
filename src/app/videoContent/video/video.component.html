@@ -3,19 +3,21 @@
 </div>
 <div class="container">
   <div class="row">
-    <div class="col-md-4" style="margin:10px; width:350px; border: 0px solid #ccc;word-wrap: break-word;" *ngFor="let video of videosArray;">
-      <div class="videoContainer">
-        <video id="{{video._id}}" playsinline controls width="1000" height="100px" onloadeddata="addStream()">
-          <source src='https://nameless-plateau-81910.herokuapp.com/renderVideo/{{video._id}}' type="video/mp4" />
-        </video>
+    <div class="col-md-4" style="border-top:0px;border-bottom:0px;border-right:0px;word-wrap: break-word;" *ngFor="let video of videosArray;">
+      <div class="videoContainer center">
+        <div class="videoInnerContainer">
+          <video id="{{video._id}}" playsinline controls width="410px" height="230px" onloadeddata="addStream()">
+            <source src='https://nameless-plateau-81910.herokuapp.com/renderVideo/{{video._id}}' type="video/mp4" />
+          </video>
+        </div>
       </div>
-      <div class="title">
+      <div class="title center">
         <p> {{video.originalname}} </p>
       </div>
     </div>
-    <div class="{{msg ? 'alert alert-danger alert-dismissible fade show' : 'alert alert-danger alert-dismissible fade hide'}}" role="alert" style="margin-top:10px;" *ngIf="msg != ''">
+    <div id="alert" class="{{msg ? 'alert alert-danger alert-dismissible fade show' : 'alert alert-danger alert-dismissible fade hide'}}" role="alert" style="margin-top:10px;" *ngIf="msg != ''">
       {{msg}}
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <button id='alertclose' type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>

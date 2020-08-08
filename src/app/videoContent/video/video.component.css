@@ -21,7 +21,21 @@
   margin-bottom: 20px;
 }
 
+.center{
+  max-width: 450px !important;
+  margin: auto;
+  padding: 10px;
+}
+
 .title{
   margin-bottom: 20px;
   color: #1266f1;
+}
+
+.container{
+  padding-top: 40px;
+}
+
+.plyr{
+  max-width: 50% !important;
 }

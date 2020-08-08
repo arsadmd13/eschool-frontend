@@ -31,7 +31,7 @@ import { ToastrService } from 'ngx-toastr';
 
 
 
-const URL = 'https://nameless-plateau-81910.herokuapp.com/video/upload';
+const URL = 'https://nameless-plateau-81910.herokuapp.com/video/upload';//http://localhost:3000/video/upload';//
 
 @Component({
   selector: 'app-upload',
@@ -59,7 +59,7 @@ export class UploadComponent implements OnInit {
     this.username = sessionStorage.getItem('username');
     this.userid = sessionStorage.getItem('userid');
 
-    if(this.role != "1"){
+    if(this.role !== "1"){
       location.href = '/'
     }
 

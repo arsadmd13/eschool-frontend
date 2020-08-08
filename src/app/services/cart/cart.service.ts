@@ -6,27 +6,22 @@ import { HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 
-export class AuthenticationService {
+export class CartService {
 
   constructor(public httpClient: HttpClient) { }
 
   create(data) {
-      let url = "https://nameless-plateau-81910.herokuapp.com/user/register";
+      let url = "https://nameless-plateau-81910.herokuapp.com/cart/add";
       return this.httpClient.post(url, data);
   }
 
   read(data) {
-    let url = "https://nameless-plateau-81910.herokuapp.com/user/login";
+    let url = "https://nameless-plateau-81910.herokuapp.com/cart/read";
     return this.httpClient.post(url, data);
   }
 
-  readall(data){
-    let url = "https://nameless-plateau-81910.herokuapp.com/user/read";
-    return this.httpClient.post(url, data);
-  }
-
-  update(data){
-    let url = "https://nameless-plateau-81910.herokuapp.com/user/update";
+  delete(data) {
+    let url = "https://nameless-plateau-81910.herokuapp.com/cart/delete";
     return this.httpClient.post(url, data);
   }
 

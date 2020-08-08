@@ -15,7 +15,7 @@ export class ReceiveComponent{
     this.role = sessionStorage.getItem('role');
     this.username = sessionStorage.getItem('username');
 
-    if(this.role == undefined || this.role == "1") {
+    if(this.role === undefined || this.role === "1" || this.role === null) {
       location.href = "/";
     }
 

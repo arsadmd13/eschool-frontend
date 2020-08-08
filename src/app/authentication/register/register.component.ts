@@ -19,6 +19,7 @@ export class RegisterComponent implements OnInit{
   @ViewChild('regPassword', {static: true}) regPass: ElementRef;
   @ViewChild('regPassword2', {static: true}) regPass2: ElementRef;
   @ViewChild('regForm', {static: true}) regForm: ElementRef;
+  @ViewChild('regReset', {static: true}) regReset: ElementRef;
 
   alternate: string;
   msg: string;
@@ -28,8 +29,12 @@ export class RegisterComponent implements OnInit{
 
     this.role = sessionStorage.getItem('role');
 
-    if(this.role != undefined){
-      location.href = "/"
+    if(this.role === "1"){
+      location.href = "faculty/home";
+    } else if(this.role === "0"){
+      location.href = "student/home"
+    } else if(this.role === "2"){
+      location.href = "admin/home"
     }
 
     let path = this.route.snapshot.url.join('/');
@@ -65,31 +70,25 @@ export class RegisterComponent implements OnInit{
         email: this.regEmail.nativeElement.value,
         password: this.regPass.nativeElement.value,
         password2: this.regPass2.nativeElement.value,
-        role: role
+        role: role,
+        rtype: "OR"
       };
-
 
       this.authenticationService.create(data).subscribe(
         (res: any) => {
           if(res.status === 200) {
 
+            this.regReset.nativeElement.click();
             this.msg = "Registered Successfully!";
 
-            if(role == 1) {
+            setTimeout(() => {
+              if(role == 1) {
+                location.href = "/faculty/login";
+              } else {
+                location.href = "/student/lohin";
+              }
+            }, 5000);
 
-              // sessionStorage.setItem('userid', res.user._id);
-              // sessionStorage.setItem('username', res.user.name);
-              // sessionStorage.setItem('emailId', res.user.email);
-              // sessionStorage.setItem('role', res.user.role);
-              //await timer(5000).take(1).toPromise();
-              location.href = "/faculty/login";
-
-            } else {
-
-              //await timer(5000).take(1).toPromise();
-              location.href = "/student/login";
-
-            }
           } else if(res.status === 404) {
             this.msg = res.message;
           } else {
@@ -103,6 +102,5 @@ export class RegisterComponent implements OnInit{
     });
 
   }
-
-
+  
 }

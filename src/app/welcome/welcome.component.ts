@@ -16,10 +16,12 @@ export class WelcomeComponent{
     this.role = sessionStorage.getItem('role');
     this.username = sessionStorage.getItem('username');
 
-    if(this.role == "0") {
-      location.href = "/student/home";
-    } else if(this.role == "1") {
-      location.href = "/faculty/home";
+    if(this.role === "1"){
+      location.href = "faculty/home";
+    } else if(this.role === "0"){
+      location.href = "student/home"
+    } else if(this.role === "2"){
+      location.href = "admin/home"
     }
 
   }

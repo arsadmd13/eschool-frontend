@@ -18,6 +18,9 @@
         <li class="nav-item" *ngIf="role == '1'">
           <a class="nav-link" href="/faculty/videos">View Video</a>
         </li>
+        <li class="nav-item" *ngIf="role == '1'">
+          <a class="nav-link" href="/faculty/change-password">Change Password</a>
+        </li>
         <li class="nav-item" *ngIf="role == '0'">
           <a class="nav-link" href="/student/home">Home</a>
         </li>
@@ -26,6 +29,30 @@
         </li>
         <li class="nav-item" *ngIf="role == '0'">
           <a class="nav-link" href="/student/videos">View Video</a>
+        </li>
+        <li class="nav-item" *ngIf="role == '0'">
+          <a class="nav-link" href="/student/plans">Subscription Plans</a>
+        </li>
+        <li class="nav-item" *ngIf="role == '0'">
+          <a class="nav-link" href="/student/change-password">Change Password</a>
+        </li>
+        <li class="nav-item" *ngIf="role == '2'">
+          <a class="nav-link" href="/admin/home">Home</a>
+        </li>
+        <li class="nav-item" *ngIf="role == '2'">
+          <a class="nav-link" href="/admin/videos">View Video</a>
+        </li>
+        <li class="nav-item" *ngIf="role == '2'">
+          <a class="nav-link" href="/admin/add/user">Add User</a>
+        </li>
+        <li class="nav-item" *ngIf="role == '2'">
+          <a class="nav-link" href="/admin/view/users">View Users</a>
+        </li>
+        <li class="nav-item" *ngIf="role == '2'">
+          <a class="nav-link" href="/admin/view/orders">View Orders</a>
+        </li>
+        <li class="nav-item" *ngIf="role == '2'">
+          <a class="nav-link" href="/admin/change-password">Change Password</a>
         </li>
       </ul>
       <ul class="navbar-nav ml-auto nav-flex-icons">
@@ -37,6 +64,11 @@
         <li class="nav-item">
           <a class="nav-link">
             <mdb-icon fab icon="google-plus"></mdb-icon>
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="role == '0'">
+          <a class="nav-link" href="/student/cart">
+            <mdb-icon fas icon="shopping-cart"></mdb-icon>
           </a>
         </li>
         <li class="nav-item" *ngIf="role != undefined">

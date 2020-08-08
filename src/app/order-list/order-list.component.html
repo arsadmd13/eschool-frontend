@@ -1,0 +1,79 @@
+<div class="container-fluid">
+
+    <div class="row">
+  
+      <div class="col-md-1"></div>
+  
+      <div class="col-md-10">
+  
+        <div class="content">
+  
+          <div class="heading d-flex align-items-center justify-content-center">
+            <p>Orders</p>
+          </div>
+  
+          <div class="cart d-flex align-items-center justify-content-center">
+            <div class="table-responsive">
+
+            <table class="table table-hover justify-content-center">
+                <thead>
+                  <tr>
+                    <th scope="col">Order Id</th>
+                    <th scope="col">User Id</th>
+                    <th scope="col">Order Item</th>
+                    <th scope="col">Order Value</th>
+                    <th scope="col">Order Date</th>
+                    <th scope="col">Order Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let order of orders;">
+                        <tr *ngIf="order.order_status === 'Success'" class="table-success">
+                            <th scope="row">{{order.order_id}}</th>
+                            <td>{{order.userId}}</td>
+                            <td>{{order.item}}</td>
+                            <td>{{order.currency}} {{order.amount}}</td>
+                            <td>{{order.ocd}}</td>
+                            <td>{{order.order_status}}</td>
+                        </tr>
+                        <tr *ngIf="order.order_status === 'Failed' || order.order_status === 'Cancelled'" class="table-danger">
+                            <th scope="row">{{order.order_id}}</th>
+                            <td>{{order.userId}}</td>
+                            <td>{{order.item}}</td>
+                            <td>{{order.currency}} {{order.amount}}</td>
+                            <td>{{order.ocd}}</td>
+                            <td>{{order.order_status}}</td>
+                        </tr>
+                        <tr *ngIf="order.order_status !== 'Success' && order.order_status !== 'Cancelled' && order.order_status !== 'Failed'">
+                            <th scope="row">{{order.order_id}}</th>
+                            <td>{{order.userId}}</td>
+                            <td>{{order.item}}</td>
+                            <td>{{order.currency}} {{order.amount}}</td>
+                            <td>{{order.ocd}}</td>
+                            <td>{{order.order_status}}</td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+                <tfoot>
+                </tfoot>
+              </table>
+              </div>
+          </div>
+
+          <div id="alert" class="{{msg ? 'alert alert-danger alert-dismissible fade show' : 'alert alert-danger alert-dismissible fade hide'}}" role="alert" style="margin-top:10px;" *ngIf="msg != ''">
+            {{msg}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+  
+        </div>
+  
+      </div>
+  
+      <div class="col-md-1"></div>
+  
+    </div>
+  
+  </div>
+  

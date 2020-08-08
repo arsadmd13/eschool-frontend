@@ -1,0 +1,72 @@
+<div class="container-fluid">
+
+    <div class="row">
+  
+      <div class="col-md-3"></div>
+  
+      <div class="col-md-6">
+  
+        <div class="content">
+  
+            <div class="heading d-flex align-items-center justify-content-center">
+                <p>Plans</p>
+            </div>
+
+            <form #loginForm class="form">
+
+                <div class="form-outline mb-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="rate" id="100" value="Rs 100 Plan (3 Videos)" (click)="selected='Rs 100 Plan ( 3 Videos)'"/>
+                        <label class="form-check-label" for="100"> Rs 100 Plan (3 Videos)</label>
+                    </div>
+                </div>
+
+                <div class="form-outline mb-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="rate" id="200" (click)="selected='Rs 200 Plan ( 7 Videos)'"/>
+                        <label class="form-check-label" for="200"> Rs 200 Plan (7 Videos) </label>
+                    </div>
+                </div>
+
+                <div class="form-outline mb-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="rate" id="300" (click)="selected='Rs 300 Plan ( 11 Videos)'"/>
+                        <label class="form-check-label" for="300"> Rs 300 Plan (11 Videos) </label>
+                    </div>
+                </div>
+
+                <div class="form-outline mb-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="rate" id="400" (click)="selected='Rs 400 Plan ( 15 Videos)'"/>
+                        <label class="form-check-label" for="400"> Rs 400 Plan (15 Videos) </label>
+                    </div>
+                </div>
+
+                <div class="form-outline mb-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="rate" id="500" (click)="selected='Rs 500 Plan ( 20 Videos)'"/>
+                        <label class="form-check-label" for="500"> Rs 500 Plan (20 Videos) </label>
+                    </div>
+                </div>
+
+                <button #loginSubmit type="submit" class="btn btn-primary btn-block" >Add to cart</button>
+
+            </form>
+  
+            <div class="{{msg ? 'alert alert-danger alert-dismissible fade show' : 'alert alert-danger alert-dismissible fade hide'}}" role="alert" style="margin-top:10px;" *ngIf="msg != ''">
+                {{msg}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+  
+        </div>
+  
+      </div>
+  
+      <div class="col-md-3"></div>
+  
+    </div>
+  
+  </div>
+  
