@@ -22,6 +22,7 @@ export class PlansComponent implements OnInit {
   smsg: string = "";
   wmsg: string = "";
   dmsg: string = "";
+  showgotocart: boolean;
 
   constructor(private route: ActivatedRoute, public cartService: CartService) { 
 
@@ -33,6 +34,7 @@ export class PlansComponent implements OnInit {
     
 
     this.showplans = true;
+    this.showgotocart = false;
 
     if(this.role !== "0"){
       location.href = "/"
@@ -67,6 +69,7 @@ export class PlansComponent implements OnInit {
               this.wmsg = "";
               this.dmsg = "";
               this.smsg = "Added to cart";
+              this.showgotocart = true;
             } else {
               this.smsg = "";
               this.wmsg = "";

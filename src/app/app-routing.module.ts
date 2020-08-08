@@ -60,6 +60,14 @@ const routes: Routes = [
     component: BroadcastComponent
   },
   {
+    path: "admin/broadcast",
+    component: BroadcastComponent
+  },
+  {
+    path: "admin/live",
+    component: ReceiveComponent
+  },
+  {
     path: "admin/home",
     component: HomeComponent
   },
@@ -119,6 +127,10 @@ const routes: Routes = [
   {
     path: "logout",
     component: LogoutComponent
+  },
+  {
+    path: ":other",
+    redirectTo: "/"
   }
 ];
 

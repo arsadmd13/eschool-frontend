@@ -27,13 +27,29 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let transaction of transactions;">
-                    <th scope="row">{{transaction.order_id}}</th>
-                    <td>{{transaction.item}}</td>
-                    <td>{{transaction.currency}} {{transaction.amount}}</td>
-                    <td>{{transaction.ocd}}</td>
-                    <td>{{transaction.order_status}}</td>
-                </tr>
+                  <ng-container *ngFor="let transaction of transactions;">
+                    <tr *ngIf="transaction.order_status === 'Success'" class="table-success">
+                      <th scope="row">{{transaction.order_id}}</th>
+                      <td>{{transaction.item}}</td>
+                      <td>{{transaction.currency}} {{transaction.amount}}</td>
+                      <td>{{transaction.ocd}}</td>
+                      <td>{{transaction.order_status}}</td>
+                    </tr>
+                    <tr *ngIf="transaction.order_status === 'Failed' || transaction.order_status === 'Cancelled'" class="table-danger">
+                      <th scope="row">{{transaction.order_id}}</th>
+                      <td>{{transaction.item}}</td>
+                      <td>{{transaction.currency}} {{transaction.amount}}</td>
+                      <td>{{transaction.ocd}}</td>
+                      <td>{{transaction.order_status}}</td>
+                    </tr>
+                    <tr *ngIf="transaction.order_status !== 'Success' && transaction.order_status !== 'Cancelled' && transaction.order_status !== 'Failed'">
+                      <th scope="row">{{transaction.order_id}}</th>
+                      <td>{{transaction.item}}</td>
+                      <td>{{transaction.currency}} {{transaction.amount}}</td>
+                      <td>{{transaction.ocd}}</td>
+                      <td>{{transaction.order_status}}</td>
+                    </tr>
+                  </ng-container>
                 </tbody>
                 <tfoot>
                 </tfoot>
@@ -41,7 +57,7 @@
               </div>
           </div>
   
-          <div id="alert" class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top:10px;" *ngIf="msg !== ''">
+          <div id="alert" class="alert alert-warning alert-dismissible fade show" role="alert" style="margin-top:10px;" *ngIf="msg !== ''">
             {{msg}}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
               <span aria-hidden="true">&times;</span>

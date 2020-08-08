@@ -15,7 +15,7 @@ export class BroadcastComponent{
     this.role = sessionStorage.getItem('role');
     this.username = sessionStorage.getItem('username');
 
-    if(this.role !== "1" || this.role === undefined || this.role === null) {
+    if(this.role === "0" || this.role === undefined || this.role === null) {
       location.href = "/";
     }
 

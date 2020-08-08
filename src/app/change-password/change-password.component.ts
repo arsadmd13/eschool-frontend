@@ -9,8 +9,9 @@ import { ActivatedRoute, Params, Router, UrlSegment } from '@angular/router';
 })
 export class ChangePasswordComponent implements OnInit {
 
-  @ViewChild('passPassword', {static: true}) passPassword: ElementRef;
-  @ViewChild('passCpassword', {static: true}) passCpassword: ElementRef;
+  @ViewChild('passOldpassword', {static: true}) passOldpassword: ElementRef;
+  @ViewChild('passNewpassword', {static: true}) passNewpassword: ElementRef;
+  @ViewChild('passCnewpassword', {static: true}) passCnewpassword: ElementRef;
   @ViewChild('passForm', {static: true}) passForm: ElementRef;
   @ViewChild('passReset', {static: true}) passReset: ElementRef;
 
@@ -56,25 +57,30 @@ export class ChangePasswordComponent implements OnInit {
     this.passForm.nativeElement.addEventListener("submit", (event) => {
 
       event.preventDefault();
-
+      document.getElementById('alert').classList.replace('alert-danger', 'alert-warning');
       this.msg = "Please wait while we process your request...";
 
       const data = {
         userId: this.userId,
-        password: this.passPassword.nativeElement.value,
-        password2: this.passCpassword.nativeElement.value,
+        oldpassword: this.passOldpassword.nativeElement.value,
+        newpassword: this.passNewpassword.nativeElement.value,
+        newpassword2: this.passCnewpassword.nativeElement.value,
         secTkn: sessionStorage.getItem('jwtToken')
-      }
+      }      
 
       this.authenticationService.update(data).subscribe(
         (res: any) => {
           if(res.status === 200){
-            this.msg = "Password Updated!"
+            document.getElementById('alert').classList.replace('alert-warning', 'alert-success');
+            this.msg = "Password Updated!";
             this.passReset.nativeElement.click();
+            location.href = "/";
           } else {
+            document.getElementById('alert').classList.replace('alert-warning', 'alert-danger');
             this.msg = res.message;
           }
         }, (error) => {
+          document.getElementById('alert').classList.replace('alert-warning', 'alert-danger');
           this.msg = "We hit a road block while processing your request!";
         }
       )

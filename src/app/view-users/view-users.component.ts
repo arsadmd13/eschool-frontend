@@ -57,7 +57,7 @@ export class ViewUsersComponent implements OnInit {
         }
       }, (error) => {
         this.wmsg = "";
-        this.msg = "dWe hit a road block while processing your request!"
+        this.msg = "We hit a road block while processing your request!"
       }
     );
 

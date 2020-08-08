@@ -24,7 +24,6 @@ export class AddUserComponent implements OnInit {
     this.role = sessionStorage.getItem('role');
     this.userId = sessionStorage.getItem('userid');
     this.username = sessionStorage.getItem('username');
-    document.getElementById('alert').classList.replace('alert-danger', 'alert-warning');
     this.msg = "Users added here will have the password same as their email-id";
 
     if(this.role !== "2"){

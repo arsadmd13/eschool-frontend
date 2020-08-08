@@ -19,13 +19,11 @@ export class TransactionsComponent implements OnInit {
   constructor(public checkoutService: CheckoutService) { 
     this.role = sessionStorage.getItem('role');
     this.userId = sessionStorage.getItem('userid');
-    this.username = sessionStorage.getItem('username');
+    this.username = sessionStorage.getItem('username');    
 
     if(this.role !== "0"){
       location.href = "/"
     }
-
-    document.getElementById('alert').classList.replace('alert-danger', 'alert-warning');
     this.msg = "Plase wait while we fetch data from our server...";
 
     const data = {
@@ -37,7 +35,7 @@ export class TransactionsComponent implements OnInit {
       (res: any) => {
         if(res.status === 200) {
           this.msg = "";
-          this.transactions = res.orders;
+          this.transactions = res.orders;          
         } else {
           document.getElementById('alert').classList.replace('alert-warning', 'alert-danger');
           this.msg = res.message;

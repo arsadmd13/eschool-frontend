@@ -50,6 +50,7 @@
                 </div>
 
                 <button #planSubmit type="submit" class="btn btn-primary btn-block" (click)="addToCart()">Add to cart</button>
+                <a *ngIf="showgotocart" class="btn btn-primary btn-block btn-last" href="/student/cart">Go to cart</a>
 
             </form>
             </div>
