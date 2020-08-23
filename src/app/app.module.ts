@@ -1,15 +1,17 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import "@angular/compiler";
-import { FileSelectDirective } from 'ng2-file-upload';
-import { FileUploadModule } from 'ng2-file-upload';
 
 import { NavbarModule, WavesModule, ButtonsModule, IconsModule } from 'angular-bootstrap-md'
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxStripeModule } from 'ngx-stripe';
+import { FileSelectDirective } from 'ng2-file-upload';
+import { FileUploadModule } from 'ng2-file-upload';
+import { StripeModule } from "stripe-angular"
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -34,6 +36,7 @@ import { AddUserComponent } from './add-user/add-user.component';
 import { ViewUsersComponent } from './view-users/view-users.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { OrderListComponent } from './order-list/order-list.component';
+import { StripePaymentComponent } from './stripe-payment/stript-payment.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +60,8 @@ import { OrderListComponent } from './order-list/order-list.component';
     AddUserComponent,
     ViewUsersComponent,
     ChangePasswordComponent,
-    OrderListComponent
+    OrderListComponent,
+    StripePaymentComponent
   ],
   imports: [
     BrowserModule,
@@ -71,8 +75,11 @@ import { OrderListComponent } from './order-list/order-list.component';
     HttpModule,
     FileUploadModule,
     ToastrModule.forRoot(),
-    BrowserAnimationsModule
-    ],
+    BrowserAnimationsModule,
+    NgxStripeModule.forRoot('pk_test_51HIqmtJr4whGte04mO3CIdZjuPvhnoHt0RTfXRsbEk5K9mcDlMiOFq934rDvaEh3ZAfgBK96LN817L4JvfH3ut3800rh8R3VAK'),
+    ReactiveFormsModule,
+    StripeModule.forRoot("pk_test_51HIqmtJr4whGte04mO3CIdZjuPvhnoHt0RTfXRsbEk5K9mcDlMiOFq934rDvaEh3ZAfgBK96LN817L4JvfH3ut3800rh8R3VAK")
+  ],
   providers: [AuthenticationService],
   bootstrap: [AppComponent]
 })

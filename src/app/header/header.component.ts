@@ -9,11 +9,16 @@ import { Component } from '@angular/core'
 export class HeaderComponent{
 
   role: string;
+  tabs = []
 
   constructor() {
 
     this.role = sessionStorage.getItem('role');
 
+  }
+
+  setTabs(tabs){
+    this.tabs = tabs;
   }
 
 }

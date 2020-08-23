@@ -17,6 +17,7 @@ import { AddUserComponent } from './add-user/add-user.component';
 import { ViewUsersComponent } from './view-users/view-users.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { OrderListComponent } from './order-list/order-list.component';
+import { StripePaymentComponent } from './stripe-payment/stript-payment.component';
 
 const routes: Routes = [
   {
@@ -127,6 +128,10 @@ const routes: Routes = [
   {
     path: "logout",
     component: LogoutComponent
+  },
+  {
+    path: "stripe/payment",
+    component: StripePaymentComponent
   },
   {
     path: ":other",

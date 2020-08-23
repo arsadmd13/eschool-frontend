@@ -25,4 +25,9 @@ export class CartService {
     return this.httpClient.post(url, data);
   }
 
+  pay(data) {
+    let url = "http://localhost:4242/create-payment-intent";
+    return this.httpClient.post(url, data);
+}
+
 }

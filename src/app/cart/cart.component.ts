@@ -19,6 +19,7 @@ export class CartComponent implements OnInit {
   email: string;
   buttonDisabled: boolean;
   orderId: string;
+  enablegateway: boolean;
 
   cartItem : any = [];
 
@@ -63,18 +64,28 @@ export class CartComponent implements OnInit {
 
     document.getElementById('checkoutbtn').addEventListener('click', (event) => {
 
-      document.getElementById('checkoutbtn').innerText = "Loading...";
+      this.enablegateway = true
+      this.buttonDisabled = true;
+      
+    })
+  }
+
+  rpay(){
+    document.getElementById('checkoutbtn').innerText = "Loading...";
+
+    this.enablegateway = false
   
       const data = {
         userId: this.userId,
         amount: document.getElementById('totalVal').innerText,
         item: document.getElementById('itemName').innerText,
-        secTkn: sessionStorage.getItem('jwtToken')
+        secTkn: sessionStorage.getItem('jwtToken'),
+        gateway: "Razorpay"
       }
 
       this.checkoutService.createOrder(data).subscribe(
         (res: any) => {
-          if(res.status === 200){
+          if(res.status === 200){            
 
             const oId = res.order.id;   
             this.orderId = oId;     
@@ -138,7 +149,29 @@ export class CartComponent implements OnInit {
           this.msg = "Unable to process your request ath the moment!";
         }
       )
-    })
+  }
+
+  spay(){
+
+    this.enablegateway = false
+
+    const data = {
+      userId: this.userId,
+      amount: document.getElementById('totalVal').innerText,
+      item: document.getElementById('itemName').innerText,
+      secTkn: sessionStorage.getItem('jwtToken'),
+      gateway: "Stripe"
+    }
+
+    this.checkoutService.createOrder(data).subscribe(
+      (res: any) => {
+        if(res.status === 200){
+          location.href = '/stripe/payment'
+        } else {
+          this.msg = "Error!"
+        }
+      }
+    )
   }
 
   remove(){
@@ -167,6 +200,7 @@ export class CartComponent implements OnInit {
         userId: this.userId,
         order_id: this.orderId,
         order_status: "Failed",
+        gateway: "Razorpay",
         secTkn: sessionStorage.getItem('jwtToken')
       }
     
@@ -201,6 +235,7 @@ export class CartComponent implements OnInit {
         order_status: "Success",
         payment_id: response.razorpay_payment_id,
         signature: response.razorpay_signature,
+        gateway: "Razorpay",
         secTkn: sessionStorage.getItem('jwtToken')
       }      
 

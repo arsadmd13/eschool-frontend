@@ -31,7 +31,7 @@ export class TransactionsComponent implements OnInit {
       secTkn: sessionStorage.getItem('jwtToken')
     }
 
-    this.checkoutService.read(data).subscribe(
+    this.checkoutService.transactions(data).subscribe(
       (res: any) => {
         if(res.status === 200) {
           this.msg = "";

@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit{
   role: string;
   noregister: boolean;
 
-  constructor(private route: ActivatedRoute, public authenticationService: AuthenticationService){
+  constructor(private route: ActivatedRoute, public authenticationService: AuthenticationService, private router: Router){
 
     this.role = sessionStorage.getItem('role');
     this.noregister = false;
@@ -100,14 +100,19 @@ export class LoginComponent implements OnInit{
 
             setTimeout(() => {
               if(role === 1) {
+                // this.headerComponent.setTabs([{name: "Home",link: "/faculty/home"}])
+                // this.router.navigate(['/faculty/home']);
                 location.href = "/faculty/home";
               } else if(role === 2) {
+                // this.router.navigate(['/admin/home']);
                 location.href = "/admin/home";
               } else {                
                 if(res.user.subscription.status === "NA"){
+                  // this.router.navigate(['/student/plans']);
                   location.href = "/student/plans";
                   return
                 }
+                // this.router.navigate(['/student/home']);
                 location.href = "/student/home";
               }
             }, 3000);
