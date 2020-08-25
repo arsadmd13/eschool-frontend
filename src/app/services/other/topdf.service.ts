@@ -13,7 +13,7 @@ export class PdfService {
   convert(data) {
       console.log(data);
       
-      let url = "http://localhost:3000/topdf";
+      let url = "https://nameless-plateau-81910.herokuapp.com/topdf";
       return this.httpClient.post(url, data);
   }
 
