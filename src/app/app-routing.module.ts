@@ -18,6 +18,7 @@ import { ViewUsersComponent } from './view-users/view-users.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { OrderListComponent } from './order-list/order-list.component';
 import { StripePaymentComponent } from './stripe-payment/stript-payment.component';
+import { WysiwygEditorComponent } from './wysiwyg-editor/wysiwyg-editor.component';
 
 const routes: Routes = [
   {
@@ -132,6 +133,10 @@ const routes: Routes = [
   {
     path: "stripe/payment",
     component: StripePaymentComponent
+  },
+  {
+    path: "editor",
+    component: WysiwygEditorComponent
   },
   {
     path: ":other",

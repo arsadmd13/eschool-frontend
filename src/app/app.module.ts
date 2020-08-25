@@ -37,6 +37,24 @@ import { ViewUsersComponent } from './view-users/view-users.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { OrderListComponent } from './order-list/order-list.component';
 import { StripePaymentComponent } from './stripe-payment/stript-payment.component';
+import { WysiwygEditorComponent } from './wysiwyg-editor/wysiwyg-editor.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+
+// Import all Froala Editor plugins.
+import 'froala-editor/js/plugins.pkgd.min.js';
+
+// Import a single Froala Editor plugin.
+import 'froala-editor/js/plugins/align.min.js';
+
+// Import a Froala Editor language file.
+import 'froala-editor/js/languages/de.js';
+
+// Import a third-party plugin.
+import 'froala-editor/js/third_party/font_awesome.min';
+import 'froala-editor/js/third_party/image_tui.min';
+import 'froala-editor/js/third_party/spell_checker.min';
+import 'froala-editor/js/third_party/embedly.min';
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 @NgModule({
   declarations: [
@@ -61,7 +79,8 @@ import { StripePaymentComponent } from './stripe-payment/stript-payment.componen
     ViewUsersComponent,
     ChangePasswordComponent,
     OrderListComponent,
-    StripePaymentComponent
+    StripePaymentComponent,
+    WysiwygEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -78,7 +97,9 @@ import { StripePaymentComponent } from './stripe-payment/stript-payment.componen
     BrowserAnimationsModule,
     NgxStripeModule.forRoot('pk_test_51HIqmtJr4whGte04mO3CIdZjuPvhnoHt0RTfXRsbEk5K9mcDlMiOFq934rDvaEh3ZAfgBK96LN817L4JvfH3ut3800rh8R3VAK'),
     ReactiveFormsModule,
-    StripeModule.forRoot("pk_test_51HIqmtJr4whGte04mO3CIdZjuPvhnoHt0RTfXRsbEk5K9mcDlMiOFq934rDvaEh3ZAfgBK96LN817L4JvfH3ut3800rh8R3VAK")
+    StripeModule.forRoot("pk_test_51HIqmtJr4whGte04mO3CIdZjuPvhnoHt0RTfXRsbEk5K9mcDlMiOFq934rDvaEh3ZAfgBK96LN817L4JvfH3ut3800rh8R3VAK"),
+    FroalaEditorModule.forRoot(), FroalaViewModule.forRoot(),
+    CKEditorModule
   ],
   providers: [AuthenticationService],
   bootstrap: [AppComponent]

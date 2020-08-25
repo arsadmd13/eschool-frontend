@@ -1,0 +1,42 @@
+<div class="container-fluid">
+
+    <div class="row">
+  
+      <div class="col-md-1"></div>
+  
+      <div class="col-md-10">
+  
+        <div class="content">
+  
+          <div class="heading d-flex align-items-center justify-content-center">
+            <p>WYSIWYG Editor</p>
+          </div>
+  
+          <div class="cart d-flex align-items-center justify-content-center">
+            <div class="p-gutter container">
+              <div class="card">
+                <div [froalaEditor]='options'>Hello, Froala!</div>
+              </div>
+              <p><br><br><br></p>
+
+              <div class="p-gutter container">
+                <div class="card">
+                  <ckeditor #myEditor [editor]="Editor" data="<p>Hello, world!</p>" (ready)="onReady($event)"></ckeditor>
+                </div>
+              </div>
+              <button (click)="makepdf()">Make Pdf</button>
+              
+            </div>
+              </div>
+          </div>
+
+          <a *ngIf="link" href="{{link}}" target="__blank">Click Here To View The PDF</a>
+  
+        </div>
+        <div class="col-md-1"></div>
+
+      </div>
+  
+  
+    </div>
+    

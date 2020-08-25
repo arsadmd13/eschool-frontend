@@ -1,0 +1,13 @@
+.heading{
+    padding-top: 50px;
+    font-size: 30px;
+}
+
+.ck{
+    border: 10px solid #ffffff;
+}
+
+
+.ck.ck-editor__editable:not(.ck-editor__nested-editable).ck-rounded-corners{
+    background-color: #ffffff;
+}
