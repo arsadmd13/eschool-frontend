@@ -24,13 +24,15 @@
                   <ckeditor #myEditor [editor]="Editor" data="<p>Hello, world!</p>" (ready)="onReady($event)"></ckeditor>
                 </div>
               </div>
-              <button (click)="makepdf()">Make Pdf</button>
+              <button (click)="ccklog()">Submit</button>
+              <p><br><br><br></p>
+              <div class="ck ck-content ck-editor__editable ck-rounded-corners ck-editor__editable_inline ck-blurred" id="testDiv"></div>
               
             </div>
               </div>
           </div>
 
-          <a *ngIf="link" href="{{link}}" target="__blank">Click Here To View The PDF</a>
+          <!-- <a *ngIf="link" href="{{link}}" target="__blank">Click Here To View The PDF</a> -->
   
         </div>
         <div class="col-md-1"></div>

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import FroalaEditor from 'froala-editor';
-import * as DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
-import DecoupledEditor2 from '@ckeditor/ckeditor5-build-decoupled-document';
+import * as Editor from '@ckeditor/ckeditor5-build-decoupled-document';
+// import * as Editor from '@ckeditor/ckeditor-custom-build'
 import { MyUploadAdapter } from './uploader.service';
 import { PdfService } from '../services/other/topdf.service'
 @Component({
@@ -14,7 +14,7 @@ export class WysiwygEditorComponent implements OnInit {
   element: any;
   link: string;
 
-  public Editor = DecoupledEditor;
+  public Editor = Editor;
   public options: Object = {
     charCounterCount: true,
     toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', 'textColor', 'backgroundColor', 'inlineClass', 'inlineStyle', 'paragraphStyle', 'lineHeight', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertFile', 'insertTable', 'emoticons', 'fontAwesome', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', 'print', 'getPDF', 'spellChecker', 'help', 'html', '|', 'undo', 'redo'],
@@ -23,9 +23,11 @@ export class WysiwygEditorComponent implements OnInit {
     toolbarButtonsMD: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', 'textColor', 'backgroundColor', 'inlineClass', 'inlineStyle', 'paragraphStyle', 'lineHeight', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertFile', 'insertTable', 'emoticons', 'fontAwesome', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', 'print', 'getPDF', 'spellChecker', 'help', 'html', '|', 'undo', 'redo']
   };
 
-
+  ckeditor;
   public onReady( editor ) {
-    editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
+    this.ckeditor = editor;
+    editor.plugins.get('FileRepository').createUploadAdapter = function (loader) {
+      console.log(btoa(loader.file));
       return new MyUploadAdapter(loader);
     };
     // editor.ui
@@ -35,9 +37,9 @@ export class WysiwygEditorComponent implements OnInit {
     //     editor.ui.getEditableElement()
     //   );
     editor.ui.getEditableElement().parentElement.insertBefore(
-        editor.ui.view.toolbar.element,
-        editor.ui.getEditableElement()
-    );
+      editor.ui.view.toolbar.element,
+      editor.ui.getEditableElement()
+  );
 }
 @ViewChild('myEditor') myEditor: any;
 
@@ -113,6 +115,12 @@ export class WysiwygEditorComponent implements OnInit {
     
     return canvas.toDataURL('image/jpeg');
  }
+
+ ccklog(){
+  console.log(this.ckeditor);
+  console.log(this.ckeditor.getData());
+  document.getElementById('testDiv').innerHTML = this.ckeditor.getData();
+}
 
  makepdf(){
   console.log(document.getElementsByClassName('ck-editor__editable_inline')[0].innerHTML);
