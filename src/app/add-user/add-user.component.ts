@@ -1,11 +1,12 @@
 import { Component, OnInit, ElementRef, ViewChild  } from '@angular/core';
 import { AuthenticationService } from '../services/authentication/authentication.service';
 import { ActivatedRoute, Params, Router, UrlSegment } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-user',
   templateUrl: './add-user.component.html',
-  styleUrls: ['./add-user.component.css']
+  styleUrls: ['./add-user.component.scss']
 })
 export class AddUserComponent implements OnInit {
 
@@ -17,66 +18,106 @@ export class AddUserComponent implements OnInit {
   msg: string;
   userId: string;
   username: string;
-  role: string;
+  user: any;
   selected: string;
 
-  constructor(private route: ActivatedRoute, public authenticationService: AuthenticationService) {
-    this.role = sessionStorage.getItem('role');
-    this.userId = sessionStorage.getItem('userid');
-    this.username = sessionStorage.getItem('username');
-    this.msg = "Users added here will have the password same as their email-id";
+  form: FormGroup;
 
-    if(this.role !== "2"){
-      location.href = "/";
+  constructor(private router: Router, 
+              public authenticationService: AuthenticationService,
+              private fb: FormBuilder) {
+    this.user = this.authenticationService.currentUserValue?.user;
+          // this.showWarnAlert("Users added here will have the password same as their email-id");
+
+
+    if(this.user.role !== "2"){
+      this.router.navigate(['/']);
     }
 
   }
 
   ngOnInit(): void {
+    this.form = this.fb.group({
+      name: ['', Validators.required],
+      email: ['', Validators.required],
+      role: ['', Validators.required]
+    })
+    
+    setTimeout(() => {
+    }, 2000)
+  }
 
-    this.regForm.nativeElement.addEventListener("submit", (event) => {
+  submit(){
 
-      event.preventDefault();
-
-      document.getElementById('alert').classList.replace('alert-success', 'alert-warning')
-      document.getElementById('alert').classList.replace('alert-danger', 'alert-warning')
-      this.msg = "Please wait while we process your request..."
-
-      if(this.selected === "faculty"){
-        var role = "1";
-      } else if (this.selected === "student"){
-        var role = "0";
-      } else {
-        var role = "";
+    for(let control in this.form.controls){
+      if(this.form.controls[control].hasError('required')){
+        this.showWarnAlert('Please fill in all the mandatory fields');
+        return;
       }
+    }
+    
+    const data = this.form.value;
+    data['rtype'] = "AR";
 
-      let data = {
-        name: this.regUsername.nativeElement.value,
-        email: this.regEmail.nativeElement.value,
-        password: this.regEmail.nativeElement.value,
-        password2: this.regEmail.nativeElement.value,
-        role: role,
-        rtype: "AR",
-        secTkn: sessionStorage.getItem('jwtToken')
-      };
+    this.showWarnAlert("Please wait while we process your request...")
 
-      this.authenticationService.create(data).subscribe(
-        (res: any) => {
-          if(res.status === 200) {
-            this.regReset.nativeElement.click();
-            document.getElementById('alert').classList.replace('alert-warning', 'alert-success');
-            this.msg = "User added!";
-          } else {
-            document.getElementById('alert').classList.replace('alert-warning', 'alert-danger')
-            this.msg = res.message;
-          }
-        }, (error) => {
-          document.getElementById('alert').classList.replace('alert-warning', 'alert-danger')
-          this.msg = "We hit a road block while processing your request!";
+    this.authenticationService.create(data).subscribe(
+      (res: any) => {
+        if(res.status === 200) {
+          this.regReset.nativeElement.click();
+          this.showSuccessAlert("User added!");
+        } else {
+          this.showErrorAlert(res.message);
         }
-      )
+      }, (error) => {
+        this.showErrorAlert("Oops! Unable to process your request at the moment.");
+      }
+    )
 
-    });
+  }
+
+  @ViewChild('successAlert', { static: true }) successAlert: ElementRef;
+  @ViewChild('warnAlert', { static: true }) warnAlert: ElementRef;
+  @ViewChild('errorAlert', { static: true }) errorAlert: ElementRef;
+
+  successMsg = "";
+  warnMsg = "";
+  errorMsg = "";
+
+  closeSuccessAlert() {
+    this.successAlert.nativeElement.classList.remove('show');
+  }
+
+  showSuccessAlert(msg) {
+    this.closeAllAlerts();
+    this.successMsg = msg;
+    this.successAlert.nativeElement.classList.add('show');
+  }
+
+  closeWarnAlert() {
+    this.warnAlert.nativeElement.classList.remove('show');
+  }
+
+  showWarnAlert(msg) {
+    this.closeAllAlerts();
+    this.warnMsg = msg;
+    this.warnAlert.nativeElement.classList.add('show');
+  }
+
+  closeErrorAlert() {
+    this.errorAlert.nativeElement.classList.remove('show');
+  }
+
+  showErrorAlert(msg) {
+    this.closeAllAlerts();
+    this.errorMsg = msg;
+    this.errorAlert.nativeElement.classList.add('show');
+  }
+
+  closeAllAlerts(){
+    this.errorAlert.nativeElement.classList.remove('show');
+    this.warnAlert.nativeElement.classList.remove('show');
+    this.successAlert.nativeElement.classList.remove('show');
   }
 
 }

@@ -4,10 +4,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from "./authentication/login/login.component";
 import { RegisterComponent } from "./authentication/register/register.component";
 import { WelcomeComponent } from "./welcome/welcome.component";
-import { BroadcastComponent } from "./liveStream/broadcast/broadcast.component"
-import { ReceiveComponent } from "./liveStream/receive/receive.component"
-import { UploadComponent } from './videoContent/uploadVideo/upload-video.component';
-import { VideoComponent } from './videoContent/video/video.component';
+import { BroadcastComponent } from "./class/broadcast/broadcast.component"
+import { ReceiveComponent } from "./class/receive/receive.component"
+import { UploadComponent } from './video-content/upload-video/upload-video.component';
+import { VideoComponent } from './video-content/video/video.component';
 import { HomeComponent } from './home/home.component';
 import { LogoutComponent } from "./authentication/logout/logout.component";
 import { CartComponent } from "./cart/cart.component";
@@ -19,11 +19,31 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { OrderListComponent } from './order-list/order-list.component';
 import { StripePaymentComponent } from './stripe-payment/stript-payment.component';
 import { WysiwygEditorComponent } from './wysiwyg-editor/wysiwyg-editor.component';
+import { CreateClassComponent } from './class/create-class/create-class.component';
+import { PricingComponent} from './pricing/pricing.component';
+import { AuthGuard } from './utils/guards/auth/auth.guard';
 
 const routes: Routes = [
   {
     path: "",
-    component: WelcomeComponent
+    component: LoginComponent
+  },
+  {
+    path: "register",
+    component: RegisterComponent
+  },
+  {
+    path: "login",
+    component: LoginComponent
+  },
+  {
+    path: "create-class",
+    canActivate: [AuthGuard],
+    component: CreateClassComponent
+  },
+  {
+    path: "pricing",
+    component: PricingComponent
   },
   {
     path: "faculty/login",
@@ -46,7 +66,8 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: "student/cart",
+    path: "cart",
+    canActivate: [AuthGuard],
     component: CartComponent
   },
   {
@@ -65,37 +86,40 @@ const routes: Routes = [
     path: "admin/broadcast",
     component: BroadcastComponent
   },
-  {
-    path: "admin/live",
-    component: ReceiveComponent
-  },
+  // {
+  //   path: "admin/live",
+  //   component: ReceiveComponent
+  // },
   {
     path: "admin/home",
     component: HomeComponent
   },
   {
-    path: "faculty/home",
+    path: "home",
+    canActivate: [AuthGuard],
     component: HomeComponent
   },
+  // {
+  //   path: "student/home",
+  //   component: HomeComponent
+  // },
   {
-    path: "student/home",
-    component: HomeComponent
-  },
-  {
-    path: "faculty/upload",
+    path: "upload",
+    canActivate: [AuthGuard],
     component: UploadComponent
   },
   {
-    path: "student/live",
+    path: "join-class",
+    canActivate: [AuthGuard],
     component: ReceiveComponent
   },
-
   {
     path: "admin/videos",
     component: VideoComponent
   },
   {
-    path: "student/videos",
+    path: "videos",
+    // canActivate: [AuthGuard],
     component: VideoComponent
   },
   {
@@ -103,15 +127,18 @@ const routes: Routes = [
     component: VideoComponent
   },
   {
-    path: "admin/add/user",
+    path: "add-user",
+    canActivate: [AuthGuard],
     component: AddUserComponent
   },
   {
-    path: "admin/view/users",
+    path: "view-users",
+    canActivate: [AuthGuard],
     component: ViewUsersComponent
   },
   {
-    path: "admin/view/orders",
+    path: "view-orders",
+    canActivate: [AuthGuard],
     component: OrderListComponent
   },
   {
@@ -119,7 +146,8 @@ const routes: Routes = [
     component: ChangePasswordComponent
   },
   {
-    path: "student/change-password",
+    path: "change-password",
+    canActivate: [AuthGuard],
     component: ChangePasswordComponent
   },
   {
@@ -128,10 +156,12 @@ const routes: Routes = [
   },
   {
     path: "logout",
+    canActivate: [AuthGuard],
     component: LogoutComponent
   },
   {
-    path: "stripe/payment",
+    path: "stripe/payment/:receiptId",
+    canActivate: [AuthGuard],
     component: StripePaymentComponent
   },
   {

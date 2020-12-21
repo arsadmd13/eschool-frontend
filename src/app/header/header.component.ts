@@ -1,24 +1,35 @@
 import { Component } from '@angular/core'
+import { AuthenticationService } from '../services/authentication/authentication.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.scss']
 })
 
 export class HeaderComponent{
 
-  role: string;
+  role: any;
   tabs = []
 
-  constructor() {
+  constructor(private authenticationService: AuthenticationService) {
 
-    this.role = sessionStorage.getItem('role');
+    authenticationService.getUser.subscribe((userValue) => {
+      this.role = userValue?.user.role;
+    });
+
+    // if(this.role !== undefined && this.role !== null){
+      this.role = this.authenticationService.currentUserValue?.user.role;
+    // }
 
   }
 
   setTabs(tabs){
     this.tabs = tabs;
+  }
+
+  logout(){
+    this.authenticationService.logout();
   }
 
 }

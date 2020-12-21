@@ -1,0 +1,104 @@
+table{
+    margin: 10px;
+    padding-right: 100px;
+}
+
+.table-header{
+    height: 50px;
+    border-bottom: 1px solid grey;
+    padding-bottom: 100px;
+}
+
+.table-body{
+    border-bottom: 1px solid grey;
+}
+
+td { 
+    white-space:pre-wrap;
+    max-width:300px;
+    word-wrap:break-word;
+}
+
+table{
+    // width: 400px !important;
+    border: 0px solid;
+}
+
+.item-value{
+    width:100px !important;
+}
+
+tbody{
+    border-bottom: 0px solid #fff;
+}
+
+tfoot{
+    border-top: 0px solid #fff;
+}
+
+.heading{
+    padding-top: 155px;
+    font-size: 30px;
+}
+
+.btn{
+    margin-top: 20px;
+    width: 400px;
+}
+
+.bb-0{
+    border-bottom: 0px;
+}
+
+@media (max-width: 768px){
+    .align-para-end {
+      text-align: unset;
+    }
+    .resp-img{
+      width: 95vw;
+    }
+    .heading{
+      padding-top: 15px;
+    }
+    .col-md-6{
+        width: 50%;
+    }
+}
+
+@media (min-width: 768px){
+    .resp-img{
+      width: 70vw;
+    }
+    .heading{
+      padding-top: 155px;
+    }
+}
+
+.razorpay-logo{
+    width: 150px;
+    cursor: pointer;
+}
+
+.stripe-logo{
+    width: 150px;
+    height: 60px;
+    margin-top: 45px;
+    cursor: pointer;
+}
+
+#checkoutbtn{
+    margin-bottom: 0px;
+}
+
+.alert{
+    margin-top: 20px;
+}
+
+.center{
+    display: flex;
+    justify-content: center;
+}
+
+.hide{
+    display: none;
+}

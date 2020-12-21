@@ -9,33 +9,60 @@
       <div class="content">
 
         <div class="logo d-flex align-items-center justify-content-center">
-          <img style="margin:20px;" src="https://nameless-plateau-81910.herokuapp.com/img/logo.png" alt="" width="200px" height="70px">
+          <img style="margin:20px;" src="../../../assets/img/es-logo.jpg" alt="logo" width="300px" height="100px">
         </div>
 
-        <form #loginForm class="form">
+        <form #loginForm class="form" (submit)="submit()" [formGroup]="form">
 
           <div class="form-outline mb-4">
-            <input type="email" #loginEmail ngModel name="email" id="email" class="form-control" />
+            <input type="email"  class="form-control" formControlName="username" required/>
             <label class="form-label" for="email">Email address</label>
           </div>
 
           <div class="form-outline mb-4">
-            <input type="password" #loginPassword ngModel name="password" id="password" class="form-control" />
+            <input type="password" class="form-control" formControlName="password" required/>
             <label class="form-label" for="password">Password</label>
           </div>
 
-          <button #loginSubmit type="submit" class="btn btn-primary btn-block" >Sign in</button>
-          <a class="btn btn-primary btn-block" href='{{alternate}}' *ngIf="!noregister">Register</a>
-          <a class="btn btn-primary btn-block" href='/'>Back</a>
+          <button #loginSubmit type="submit" class="esButton" >Sign in</button>
+          <div class="row">
+            <div class="col-md-6" *ngIf="!noregister">
+              <p>Don't have an account? <span><a routerLink='/register'>Register</a></span></p>
+            </div>
+            <div class="col-md-6 align-para-end">
+              <p>Forgot Password? <span><a routerLink='/help'>Help</a></span></p>
+            </div>
+          </div>
           <button #loginReset type="reset" class="btn btn-primary btn-block" style="display: none;" >Reset</button>
 
         </form>
 
-        <div id="alert" class="{{msg ? 'alert alert-danger alert-dismissible fade show' : 'alert alert-danger alert-dismissible fade hide'}}" role="alert" style="margin-top:10px;" *ngIf="msg != ''">
+        <!-- <div id="alert" class="{{msg ? 'alert alert-danger alert-dismissible fade show' : 'alert alert-danger alert-dismissible fade hide'}}" role="alert" style="margin-top:10px;" *ngIf="msg != ''">
           {{msg}}
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <button id="close-btn" type="button" class="close hidden" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
+        </div> -->
+
+        <div #successAlert class="alert alert-warning alert-dismissible fade" role="alert">
+          <button type="button" class="close" aria-label="Close" (click)="closeSuccessAlert()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          {{successMsg}}
+        </div>
+
+        <div #warnAlert class="alert alert-warning alert-dismissible fade" role="alert">
+          <button type="button" class="close" aria-label="Close" (click)="closeWarnAlert()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          {{warnMsg}}
+        </div>
+
+        <div #errorAlert class="alert alert-warning alert-dismissible fade" role="alert">
+          <button type="button" class="close" aria-label="Close" (click)="closeErrorAlert()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          {{errorMsg}}
         </div>
 
       </div>

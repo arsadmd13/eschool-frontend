@@ -1,0 +1,19 @@
+.custom-bg{
+  background: #a6dcef !important;
+}
+
+.dropdown-menu{
+  margin-right: 20px;
+}
+
+mdb-icon{
+  color: aliceblue;
+}
+
+::ng-deep .navbar-brand, .navbar-brand:hover, .nav-link, .nav-link:hover{
+  color: aliceblue !important;
+}
+
+a:focus, a:hover{
+  color: aliceblue;
+}

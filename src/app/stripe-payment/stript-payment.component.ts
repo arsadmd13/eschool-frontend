@@ -193,7 +193,7 @@
 
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -205,19 +205,20 @@ import {
   StripeElementsOptions,
   PaymentIntent,
 } from '@stripe/stripe-js';
+import { AuthenticationService } from '../services/authentication/authentication.service';
 
 
 @Component({
   selector: 'app-stript-payment',
   templateUrl: './stript-payment.component.html',
-  styleUrls: ['./stript-payment.component.css'],
+  styleUrls: ['./stript-payment.component.scss'],
 })
 export class StripePaymentComponent implements OnInit {
   @ViewChild(StripeCardNumberComponent) card: StripeCardNumberComponent;
   @ViewChild(StripeCardComponent) cardd: StripeCardComponent;
   @ViewChild('card', {static: true}) carddd: StripeCardNumberComponent;
 
-  userId: string;
+  user: any;
 
   cardOptions: StripeCardElementOptions = {
     style: {
@@ -249,25 +250,50 @@ export class StripePaymentComponent implements OnInit {
   msg: string;
   order_id: string;
 
+  receiptId: string; 
+
   constructor(
+    private activatedRoute: ActivatedRoute,
     private http: HttpClient,
     private fb: FormBuilder,
     private stripeService: StripeService,
     private checkoutService: CheckoutService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private authenticationService: AuthenticationService
+  ) {
+    
+    
+    // this.activatedRoute.queryParams.subscribe(params => {
+    //   console.log(params);
+      
+    //   this.receiptId = params['receiptId'];
+    //   console.log(this.receiptId); // Print the parameter to the console. 
+    // });
+  }
 
   ngOnInit(): void {
 
-    this.userId = sessionStorage.getItem('userid');
+    this.user = this.authenticationService.currentUserValue.user;
+
+    this.activatedRoute.paramMap.subscribe(params => {
+      this.receiptId = params.get('receiptId');
+      // console.log(this.receiptId);   
+      this.fetchOrder();
+    });
+    
 
     this.stripeTest = this.fb.group({
       name: ['Angular v10', [Validators.required]],
       amount: [1001, [Validators.required, Validators.pattern(/\d+/)]],
     });
 
+    
+  }
+
+  fetchOrder(){
     const rdata = {
-      userId: this.userId
+      userId: this.user._id,
+      receipt_id: this.receiptId 
     }
 
     this.checkoutService.read(rdata).subscribe(
@@ -277,81 +303,88 @@ export class StripePaymentComponent implements OnInit {
           this.order_id = res.order.order_id;
           this.clientSecretId = res.order.others.stripe_client_secret;
         } else {
-          this.msg = res.message;
+          // this.showErrorAlert(res.message)
           this.router.navigate(['/'])
         }
       }
     ), (error) => {
-      this.msg = "We hit a road block while processing your request!"
+      // this.showErrorAlert("Unable to process your request at the moment! PLease try again later.");
+      this.router.navigate(['/'])
     }
   }
 
   pay(): void {
     document.getElementById('cardElement').classList.replace('borderClass--invalid', 'borderClass--valid')
-    if (this.stripeTest.valid) {
-      this.stripeService.confirmCardPayment(this.clientSecretId, {
-        payment_method: {
-          card: this.cardd.element,
-          billing_details: {
-            name: this.stripeTest.get('name').value,
-          },
+    let paymentDetails = {
+      payment_method: {
+        card: this.cardd.element,
+        billing_details: {
+          name: this.stripeTest.get('name').value,
         },
-      })
-    .subscribe((result) => {
-      
-      if (result.error) {
-        console.log(result.error.message);
-        if(result.error.type === "validation_error"){
-          document.getElementById('cardElement').classList.replace('borderClass--valid', 'borderClass--invalid')
-          this.msg = "Please fill in  the card details!"
-          return;
-        }
-
-        const data = {
-          userId: this.userId,
-          order_id: this.order_id,
-          order_status: "Failed",
-          gateway: "Stripe"
-        }
-
-        this.checkoutService.updateOrder(data).subscribe(
-          (res: any) => {
-            if(res.status === 200){
-              this.msg = "Order Failed!"
-            } else {
-              this.msg = res.message;
+      },
+    }
+    if (this.stripeTest.valid) {
+      this.stripeService.confirmCardPayment(this.clientSecretId, paymentDetails).subscribe(
+        (result) => {
+          if (result.error) {
+            console.log(result.error.message);
+            if(result.error.type === "validation_error"){
+              document.getElementById('cardElement').classList.replace('borderClass--valid', 'borderClass--invalid')
+              this.showWarnAlert("Please fill in all the mandatory fields!")
+              return;
             }
-          }
-        )
-      } else {
-        // The payment has been processed!
-        if (result.paymentIntent.status === 'succeeded') {
-          const data = {
-            userId: this.userId,
-            order_id: this.order_id,
-            order_status: "Success",
-            gateway: "Stripe"
-          }
 
-          this.checkoutService.updateOrder(data).subscribe(
-            (res: any) => {
-              if(res.status === 200){
-                document.getElementById('alert').classList.replace('alert-danger', 'alert-success');
-                this.msg = "Order Successfull!"
-                setTimeout(() => {
-                  location.href = "/student/home"
-                }, 2000)
-              } else {
-                this.msg = res.message;
+            const data = {
+              userId: this.user._id,
+              order_id: this.order_id,
+              order_status: "Failed",
+              gateway: "Stripe"
+            }
+
+            this.checkoutService.updateOrder(data).subscribe(
+              (res: any) => {
+                if(res.status === 200){
+                  this.showErrorAlert("Order Failed!")
+                } else {
+                  this.showErrorAlert(res.message)
+                }
+              }, (error) => {
+                this.showErrorAlert("Order Failed!")
               }
+            )
+          } else {
+            // The payment has been processed!
+            if (result.paymentIntent.status === 'succeeded') {
+              const data = {
+                userId: this.user._id,
+                order_id: this.order_id,
+                order_status: "Success",
+                gateway: "Stripe"
+              }
+
+              this.checkoutService.updateOrder(data).subscribe(
+                (res: any) => {
+                  if(res.status === 200){
+                    // document.getElementById('alert').classList.replace('alert-danger', 'alert-success');
+                    this.showSuccessAlert("Order Successfull!")
+                    setTimeout(() => {
+                      this.router.navigate(['/videos'])
+                    }, 2000)
+                  } else {
+                    this.showErrorAlert(res.message)
+                  }
+                }, (error) => {
+                  this.showErrorAlert("Order Failed!")
+                }
+              )
             }
-          )
-        }
-      }
-    })
+          }
+        }, (error) => {
+          this.showErrorAlert("Order Failed!")
+        })
     } else {
       // console.log(this.stripeTest);
-      console.log("do nothing");
+      this.showWarnAlert("Invalid Card Details!")
     }
   }
 
@@ -363,7 +396,7 @@ export class StripePaymentComponent implements OnInit {
   }
 
   createToken(): void {
-    console.log(this.cardd.element);
+    // console.log(this.cardd.element);
     
     // const name = this.stripeTest.get('name').value;
     // this.stripeService.createToken(this.card.element, { name }).subscribe((result) => {
@@ -380,5 +413,49 @@ export class StripePaymentComponent implements OnInit {
   check(){
     console.log("jhgfdxcv");
     
+  }
+
+  @ViewChild('successAlert', { static: true }) successAlert: ElementRef;
+  @ViewChild('warnAlert', { static: true }) warnAlert: ElementRef;
+  @ViewChild('errorAlert', { static: true }) errorAlert: ElementRef;
+
+  successMsg = "";
+  warnMsg = "";
+  errorMsg = "";
+
+  closeSuccessAlert() {
+    this.successAlert.nativeElement.classList.remove('show');
+  }
+
+  showSuccessAlert(msg) {
+    this.closeAllAlerts();
+    this.successMsg = msg;
+    this.successAlert.nativeElement.classList.add('show');
+  }
+
+  closeWarnAlert() {
+    this.warnAlert.nativeElement.classList.remove('show');
+  }
+
+  showWarnAlert(msg) {
+    this.closeAllAlerts();
+    this.warnMsg = msg;
+    this.warnAlert.nativeElement.classList.add('show');
+  }
+
+  closeErrorAlert() {
+    this.errorAlert.nativeElement.classList.remove('show');
+  }
+
+  showErrorAlert(msg) {
+    this.closeAllAlerts();
+    this.errorMsg = msg;
+    this.errorAlert.nativeElement.classList.add('show');
+  }
+
+  closeAllAlerts(){
+    this.errorAlert.nativeElement.classList.remove('show');
+    this.warnAlert.nativeElement.classList.remove('show');
+    this.successAlert.nativeElement.classList.remove('show');
   }
 }

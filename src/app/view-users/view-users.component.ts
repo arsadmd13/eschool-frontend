@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AuthenticationService } from '../services/authentication/authentication.service';
 import { ActivatedRoute, Params, Router, UrlSegment } from '@angular/router';
 
 @Component({
   selector: 'app-view-users',
   templateUrl: './view-users.component.html',
-  styleUrls: ['./view-users.component.css']
+  styleUrls: ['./view-users.component.scss']
 })
 export class ViewUsersComponent implements OnInit {
 
@@ -20,19 +20,28 @@ export class ViewUsersComponent implements OnInit {
   fusers = []
   susers = []
 
-  constructor(public authenticationService: AuthenticationService) { 
-    this.role = sessionStorage.getItem('role');
-    this.userId = sessionStorage.getItem('userid');
-    this.username = sessionStorage.getItem('username');
+  user: any;
 
-    if(this.role !== "2"){
-      location.href = "/"
+  constructor(public authenticationService: AuthenticationService,
+              private router: Router) { 
+    this.user = this.authenticationService.currentUserValue?.user;
+
+    if(this.user.role !== "2"){
+      this.router.navigate(['/'])
     }
 
-    this.wmsg = "Plase wait while we fetch data from our server...";
+    // this.role = sessionStorage.getItem('role');
+    // this.userId = sessionStorage.getItem('userid');
+    // this.username = sessionStorage.getItem('username');
+
+    // if(this.role !== "2"){
+    //   location.href = "/"
+    // }
+
+    // this.showWarnAlert("Plase wait while we fetch data from our server...");
 
     const data = {
-      secTkn: sessionStorage.getItem('jwtToken')
+      // secTkn: sessionStorage.getItem('jwtToken')
     }
 
     this.authenticationService.readall(data).subscribe(
@@ -42,28 +51,69 @@ export class ViewUsersComponent implements OnInit {
           this.susers = res.susers;
           this.caption = "NN-'Not Needed';    NA-'Not Available';    AV-'Available'";
           if(this.fusers.length === 0 && this.susers.length === 0){
-            this.wmsg = "";
-            this.dmsg = "No users found!";
+            this.showWarnAlert("No users found!");
           } else {
             this.wmsg = "";
             if(this.fusers.length === 0)
-              this.dmsg = "No users found in faculty section!"
+              this.showWarnAlert("No users found in faculty section!");
             if(this.susers.length === 0)
-              this.dmsg = "No users found in student section!"
+              this.showWarnAlert("No users found in student section!");
           }
         } else {
-          this.wmsg = "";
-          this.dmsg = res.message;
+          this.showErrorAlert(res.message);
         }
       }, (error) => {
-        this.wmsg = "";
-        this.msg = "We hit a road block while processing your request!"
+        this.showErrorAlert("We hit a road block while processing your request!");
       }
     );
 
   }
 
   ngOnInit(): void {
+  }
+
+  @ViewChild('successAlert', { static: true }) successAlert: ElementRef;
+  @ViewChild('warnAlert', { static: true }) warnAlert: ElementRef;
+  @ViewChild('errorAlert', { static: true }) errorAlert: ElementRef;
+
+  successMsg = "";
+  warnMsg = "";
+  errorMsg = "";
+
+  closeSuccessAlert() {
+    this.successAlert.nativeElement.classList.remove('show');
+  }
+
+  showSuccessAlert(msg) {
+    this.closeAllAlerts();
+    this.successMsg = msg;
+    this.successAlert.nativeElement.classList.add('show');
+  }
+
+  closeWarnAlert() {
+    this.warnAlert.nativeElement.classList.remove('show');
+  }
+
+  showWarnAlert(msg) {
+    this.closeAllAlerts();
+    this.warnMsg = msg;
+    this.warnAlert.nativeElement.classList.add('show');
+  }
+
+  closeErrorAlert() {
+    this.errorAlert.nativeElement.classList.remove('show');
+  }
+
+  showErrorAlert(msg) {
+    this.closeAllAlerts();
+    this.errorMsg = msg;
+    this.errorAlert.nativeElement.classList.add('show');
+  }
+
+  closeAllAlerts(){
+    this.errorAlert.nativeElement.classList.remove('show');
+    this.warnAlert.nativeElement.classList.remove('show');
+    this.successAlert.nativeElement.classList.remove('show');
   }
 
 }

@@ -25,16 +25,30 @@
             </div>
 
             <div class="paybtn d-flex align-items-center justify-content-center">
-              <button class="btn-primary btn-block" type="submit" (click)="pay()">
+              <button class="esButton" type="submit" (click)="pay()">
                 PAY
               </button>
             </div>
 
-            <div id="alert" class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top:10px;" *ngIf="msg">
-              {{msg}}
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <div #successAlert class="alert alert-success alert-dismissible fade" role="alert">
+              <button type="button" class="close" aria-label="Close" (click)="closeSuccessAlert()">
                 <span aria-hidden="true">&times;</span>
               </button>
+              {{successMsg}}
+            </div>
+    
+            <div #warnAlert class="alert alert-warning alert-dismissible fade" role="alert">
+              <button type="button" class="close" aria-label="Close" (click)="closeWarnAlert()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              {{warnMsg}}
+            </div>
+    
+            <div #errorAlert class="alert alert-danger alert-dismissible fade" role="alert">
+              <button type="button" class="close" aria-label="Close" (click)="closeErrorAlert()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              {{errorMsg}}
             </div>
 
         </div>

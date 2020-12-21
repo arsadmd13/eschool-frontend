@@ -1,0 +1,30 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+@import "../node_modules/primeicons/primeicons.css";
+// @import "assets/styles/primeng.scss";
+@import "../node_modules/primeng/resources/themes/md-light-indigo/theme.css";
+body{
+    background: aliceblue;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.esButton{
+    background: #28df99;
+    border-radius: 50px;
+    border: 2px solid #28df99;
+    padding: 10px 15px 10px 15px;
+    color: floralwhite;
+    width: 100%;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+  }
+ 
+
+  .fade:not(.show) {
+    display: none;
+  }
+
+  .form-outline{
+    // margin-top: 100px;
+    border-bottom: 0.5px solid gray;
+  }

@@ -1,0 +1,124 @@
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <div class="content">
+
+        <!-- <div class="logo d-flex align-items-center justify-content-center">
+          <img style="margin:20px;" src="../../../assets/img/es-logo.jpg" alt="logo" width="300px" height="100px">
+        </div> -->
+
+        <form #classForm="ngForm" class="form" [formGroup]="form" (submit)="submit(classForm)">
+
+          <div *ngIf="!showClassCode">
+            <div class="form-outline mb-4">
+              <input type="text" class="form-control" formControlName="className" required mdbInput/>
+              <label class="form-label" for="email">Class name</label>
+            </div>
+  
+            <div>
+              <h3>Class Settings</h3>
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" mdbInput formControlName="classAccess" name="classAccess" value="ALL">
+                <label class="radio-label">All</label><br>
+                <input type="radio" class="custom-control-input" mdbInput formControlName="classAccess" name="classAccess" value="RU">
+                <label class="radio-label">Registered Users</label><br>
+                <!-- <input type="radio" class="custom-control-input" mdbInput formControlName="classAccess" name="classAccess" value="SU">
+                <label class="radio-label">Selected Users</label> -->
+              </div>
+              <!-- <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id="defaultUnchecked" name="defaultExampleRadios" mdbInput>
+                <label class="custom-control-label" for="defaultUnchecked">Default unchecked</label>
+              </div> -->
+              <div class="form-outline mb-4">
+                <input type="date" class="form-control" formControlName="classDate" name="classDate">
+                <!-- <label>All</label> -->
+              </div>
+              <!-- <div class="p-field p-col-12 p-md-4">
+                <label for="time">Time</label>
+                <p-calendar formControlName="classTime" [showTime]="true" inputId="time"></p-calendar>
+            </div> -->
+            </div>
+            <button type="submit" class="esButton" >Get Class ID</button>
+            <button #resetForm type="reset" class="esButton" style="display: none;">Get Class ID</button>
+          </div>
+
+          <div *ngIf="showClassCode" class="sub-content">
+            <p>Note down your class code and share it with your students</p>
+            <p class="class-code">{{classCode}}</p>
+            <p><a (click)="newclass()">New Class</a></p>
+          </div>
+
+          <div #successAlert class="alert alert-warning alert-dismissible fade" role="alert">
+            <button type="button" class="close" aria-label="Close" (click)="closeSuccessAlert()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            {{successMsg}}
+          </div>
+  
+          <div #warnAlert class="alert alert-warning alert-dismissible fade" role="alert">
+            <button type="button" class="close" aria-label="Close" (click)="closeWarnAlert()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            {{warnMsg}}
+          </div>
+  
+          <div #errorAlert class="alert alert-warning alert-dismissible fade" role="alert">
+            <button type="button" class="close" aria-label="Close" (click)="closeErrorAlert()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            {{errorMsg}}
+          </div>
+          <!-- <div class="form-outline mb-4">
+            <input type="password" class="form-control" required/>
+            <label class="form-label" for="password">Password</label>
+          </div>
+
+          <button #loginSubmit type="submit" class="esButton" >Sign in</button> -->
+          <!-- <div class="row">
+            <div class="col-md-6" *ngIf="!noregister">
+              <p>Don't have an account? <span><a routerLink='/register'>Register</a></span></p>
+            </div>
+            <div class="col-md-6 align-para-end">
+              <p>Forgot Password? <span><a routerLink='/help'>Help</a></span></p>
+            </div>
+          </div>
+          <button #loginReset type="reset" class="btn btn-primary btn-block" style="display: none;" >Reset</button> -->
+
+        </form>
+
+        <!-- <div id="alert" class="{{msg ? 'alert alert-danger alert-dismissible fade show' : 'alert alert-danger alert-dismissible fade hide'}}" role="alert" style="margin-top:10px;" *ngIf="msg != ''">
+          {{msg}}
+          <button id="close-btn" type="button" class="close hidden" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div> -->
+
+        <!-- <div #successAlert class="alert alert-warning alert-dismissible fade" role="alert">
+          <button type="button" class="close" aria-label="Close" (click)="closeSuccessAlert()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          {{successMsg}}
+        </div>
+
+        <div #warnAlert class="alert alert-warning alert-dismissible fade" role="alert">
+          <button type="button" class="close" aria-label="Close" (click)="closeWarnAlert()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          {{warnMsg}}
+        </div>
+
+        <div #errorAlert class="alert alert-warning alert-dismissible fade" role="alert">
+          <button type="button" class="close" aria-label="Close" (click)="closeErrorAlert()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          {{errorMsg}}
+        </div> -->
+
+      </div>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+</div>
+<!-- <input type="hidden" id="username" value='{{username}}'> -->

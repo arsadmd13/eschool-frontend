@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -8,15 +9,17 @@ import { HttpHeaders } from '@angular/common/http';
 
 export class CommentService {
 
+  backendUrl = environment.url + "comment/"
+
   constructor(public httpClient: HttpClient) { }
 
   create(data) {
-      let url = "hhttps://nameless-plateau-81910.herokuapp.com/comment/add";
+      let url = this.backendUrl + "add";
       return this.httpClient.post(url, data);
   }
 
   readAll() {
-    let url = "https://nameless-plateau-81910.herokuapp.com/comment/read";
+    let url = this.backendUrl + "read";
     return this.httpClient.get(url);
   }
 
